@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="scala" name="Scala">
+      <configuration>
+        <option name="compilerLibraryLevel" value="Project" />
+        <option name="compilerLibraryName" value="Maven: org.scala-lang:scala-compiler-bundle:2.9.1" />
+        <option name="vmOptions" value="" />
+      </configuration>
+    </facet>
+    <facet type="Osmorc" name="OSGi">
+      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="scalamodules-core_2.9.1-2.0.3.jar" outputPathType="OsgiOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="com.weiglewilczek.scalamodules" bundleVersion="2.0.3" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+        <additionalProperties>
+          <property key="Bundle-Name" value="com.weiglewilczek.scalamodules" />
+          <property key="Embed-Dependency" value="scalamodules-core_2.9.1;groupId=com.weiglewilczek.scalamodules;inline=false,slf4s_2.9.1;groupId=com.weiglewilczek.slf4s;inline=false,slf4j-simple;groupId=org.slf4j;inline=false," />
+          <property key="Bundle-ClassPath" value=".,slf4s_2.9.1-1.0.7.jar,slf4j-simple-1.6.4.jar" />
+          <property key="Include-Resource" value="slf4s_2.9.1-1.0.7.jar=$MAVEN_REPOSITORY$/com/weiglewilczek/slf4s/slf4s_2.9.1/1.0.7/slf4s_2.9.1-1.0.7.jar,slf4j-simple-1.6.4.jar=$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.6.4/slf4j-simple-1.6.4.jar" />
+          <property key="Embedded-Artifacts" value="slf4s_2.9.1-1.0.7.jar;g=&quot;com.weiglewilczek.slf4s&quot;;a=&quot;slf4s_2.9.1&quot;;v=&quot;1.0.7&quot;,slf4j-simple-1.6.4.jar;g=&quot;org.slf4j&quot;;a=&quot;slf4j-simple&quot;;v=&quot;1.6.4&quot;" />
+        </additionalProperties>
+        <additionalJARContents />
+      </configuration>
+    </facet>
+    <facet type="osgiBundleFacet" name="OSGi Bundle">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/scala" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/scala" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.scala-tools.testing:specs_2.9.1:1.6.9" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.scala-lang:scala-compiler:2.9.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.slf4j:slf4j-simple:1.6.4" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.osgi:org.osgi.core:4.2.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.osgi:org.osgi.compendium:4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.weiglewilczek.slf4s:slf4s_2.9.1:1.0.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.9.5" level="project" />
+  </component>
+</module>
+
