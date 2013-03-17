@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Osmorc" name="OSGi">
+      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="core.api-1.0.0.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="pl.edu.agh.istuff.core.api" bundleVersion="1.0.0" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+        <additionalProperties>
+          <property key="Bundle-Description" value="iStuff API" />
+          <property key="Bundle-Name" value="pl.edu.agh.istuff" />
+          <property key="Export-Package" value="pl.edu.agh.istuff.api.*" />
+        </additionalProperties>
+        <additionalJARContents />
+      </configuration>
+    </facet>
+    <facet type="scala" name="Scala">
+      <configuration>
+        <option name="compilerLibraryLevel" value="Project" />
+        <option name="compilerLibraryName" value="Maven: org.scala-lang:scala-compiler-bundle:2.7.4" />
+        <option name="maximumHeapSize" value="1024" />
+        <option name="vmOptions" value="-DpackageLinkDefs=file:///home/mikolaj/Projects/iosr2013-osgi/pl.edu.agh.istuff.api/target/packageLinkDefs.properties" />
+      </configuration>
+    </facet>
+    <facet type="osgiBundleFacet" name="OSGi Bundle">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.apache.felix:org.osgi.core:1.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.felix:org.apache.felix.framework:4.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang-osgi:scala-library:2.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang-osgi:scala-compiler:2.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.scalamodules:scalamodules.core:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.scalamodules:scalamodules.util:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.felix:org.osgi.compendium:1.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.felix:javax.servlet:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.felix:org.osgi.foundation:1.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.7.4" level="project" />
+    <orderEntry type="library" name="Maven: org.scalamodules:scalamodules.services:1.0.1" level="project" />
+  </component>
+</module>
+
