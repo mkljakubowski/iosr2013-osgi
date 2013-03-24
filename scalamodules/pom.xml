@@ -39,6 +39,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.core</artifactId>
             <version>4.2.0</version>
@@ -118,9 +124,10 @@
                         <!--<Bundle-Activator>internal.HelloActivator</Bundle-Activator>-->
                         <!--<Export-Package>*</Export-Package>-->
                         <Embed-Dependency>
+                            slf4j-simple;groupId=org.slf4j;inline=false,
+                            slf4j-api;groupId=org.slf4j;inline=false,
                             scalamodules-core_2.9.1;groupId=com.weiglewilczek.scalamodules;inline=false,
                             slf4s_2.9.1;groupId=com.weiglewilczek.slf4s;inline=false,
-                            slf4j-simple;groupId=org.slf4j;inline=false,
                         </Embed-Dependency>
                     </instructions>
                 </configuration>
