@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
 
     <name>${pom.artifactId}</name>
-    <description>iStuff API</description>
+    <description>iStuff Parent</description>
 
     <modules>
         <module>pl.edu.agh.istuff.api</module>

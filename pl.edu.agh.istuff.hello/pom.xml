@@ -10,7 +10,6 @@
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
-    <name>${pom.artifactId}</name>
     <description>iStuff API</description>
 
     <dependencies>
