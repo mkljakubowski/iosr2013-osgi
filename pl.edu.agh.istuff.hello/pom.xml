@@ -1,112 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pl.edu.agh.istuff.hello</groupId>
+    <parent>
+        <groupId>pl.edu.agh.istuff</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
     <artifactId>hello</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
-    <name>${pom.groupId}</name>
+    <name>${pom.artifactId}</name>
     <description>iStuff API</description>
-    <url>localhost</url>
-
-    <properties>
-        <scala.version>2.9.1</scala.version>
-    </properties>
-
-    <repositories>
-        <repository>
-            <id>Scala-tools</id>
-            <url>https://oss.sonatype.org/content/groups/scala-tools</url>
-        </repository>
-    </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.framework</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.weiglewilczek.scala-lang-osgi</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>2.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.weiglewilczek.scala-lang-osgi</groupId>
-            <artifactId>scala-compiler</artifactId>
-            <version>2.9.1</version>
-        </dependency>
-        <dependency>   <!-- needs to be recompiled/may give errors -->
-            <groupId>com.weiglewilczek.scalamodules</groupId>
-            <artifactId>scalamodules-core_2.9.1</artifactId>
-            <version>2.0.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.weiglewilczek.slf4s</groupId>-->
-            <!--<artifactId>slf4s_2.9.1</artifactId>-->
-            <!--<version>1.0.7</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-simple</artifactId>-->
-            <!--<version>1.6.4</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main</sourceDirectory>
-        <testSourceDirectory>src/test</testSourceDirectory>
-        <plugins>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>3.1.3</version>
-                <configuration>
-                    <recompileMode>incremental</recompileMode>
-                    <jvmArgs>
-                        <jvmArg>-Xmx1024m</jvmArg>
-                    </jvmArgs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Name>${pom.name}</Bundle-Name>
-                        <Bundle-Version>${pom.version}</Bundle-Version>
-                        <Bundle-Activator>internal.HelloActivator</Bundle-Activator>
-                        <Export-Package>api</Export-Package>
-                        <!--<Import-Package></Import-Package>-->
-                        <!--<Embed-Dependency>-->
-                            <!--scalamodules-core_2.9.1;groupId=com.weiglewilczek.scalamodules;inline=false,-->
-                            <!--slf4s_2.9.1;groupId=com.weiglewilczek.slf4s;inline=false,-->
-                            <!--slf4j-simple;groupId=org.slf4j;inline=false,-->
-                        <!--</Embed-Dependency>-->
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
 </project>

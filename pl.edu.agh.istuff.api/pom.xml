@@ -1,102 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pl.edu.agh.istuff</groupId>
-    <artifactId>core.api</artifactId>
+    <parent>
+        <groupId>pl.edu.agh.istuff</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>api</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
-    <name>${pom.groupId}</name>
+    <name>${pom.artifactId}</name>
     <description>iStuff API</description>
-    <url>localhost</url>
-
-    <properties>
-        <scala.version>2.9.1</scala.version>
-    </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.framework</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scala-lang-osgi</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>2.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scala-lang-osgi</groupId>
-            <artifactId>scala-compiler</artifactId>
-            <version>2.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scalamodules</groupId>
-            <artifactId>scalamodules.core</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scalamodules</groupId>
-            <artifactId>scalamodules.services</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scalamodules</groupId>
-            <artifactId>scalamodules.util</artifactId>
-            <version>1.0.1</version>
-        </dependency>
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main</sourceDirectory>
-        <testSourceDirectory>src/test</testSourceDirectory>
-        <plugins>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>3.1.3</version>
-                <configuration>
-                    <useFsc>true</useFsc>
-                    <!--<charset>${project.build.sourceEncoding}</charset>-->
-                    <jvmArgs>
-                        <jvmArg>-Xmx1024m</jvmArg>
-                        <jvmArg>-DpackageLinkDefs=file://${project.build.directory}/packageLinkDefs.properties</jvmArg>
-                    </jvmArgs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>2.3.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Name>${pom.name}</Bundle-Name>
-                        <Bundle-Version>${pom.version}</Bundle-Version>
-                        <!--<Bundle-Activator>org.wso2.mbp.sample01.Activator</Bundle-Activator>-->
-                        <!--<Private-Package>org.wso2.mbp.sample01</Private-Package>-->
-                        <Export-Package>pl.edu.agh.istuff.api.*</Export-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
 </project>
