@@ -10,9 +10,9 @@ class HelloActivator extends BundleActivator {
 
   def start(context: BundleContext) {
     println("STARTING")
-    val polite = new HelloResource
+    val bundle = new HelloResource
 
-    serviceRegistration = context createService polite
+    serviceRegistration = context createService bundle
 
     println("REGISTERED")
   }

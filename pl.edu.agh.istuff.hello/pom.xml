@@ -25,12 +25,14 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Name>${pom.name}</Bundle-Name>
-                        <Bundle-Version>${pom.version}</Bundle-Version>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.name}</Bundle-Name>
+                        <Bundle-Version>${project.version}</Bundle-Version>
                         <Bundle-Activator>internal.HelloActivator</Bundle-Activator>
                         <!--<Export-Package>istuff.api</Export-Package>-->
-                        <Import-Package>javax.ws.rs.*</Import-Package>
+                        <!--<Import-Package>-->
+                            <!--javax.ws.rs.*-->
+                        <!--</Import-Package>-->
                         <!--<Embed-Dependency>-->
                         <!--</Embed-Dependency>-->
                     </instructions>
