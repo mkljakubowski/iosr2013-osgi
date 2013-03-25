@@ -1,11 +1,11 @@
 package istuff.hello.rest
 
 import javax.ws.rs._
-import javax.ws.rs.core._
+import core.MediaType
 
 @Path("hello")
 class HelloResource {
 
-  @GET
+  @GET @Produces(MediaType.TEXT_PLAIN)
   def hello : String = "Hello world!"
 }
