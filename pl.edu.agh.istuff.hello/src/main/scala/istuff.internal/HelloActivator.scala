@@ -1,17 +1,16 @@
 package internal
 
+import _root_.istuff.api.HelloService
+import _root_.istuff.hello.rest.HelloResource
 import org.osgi.framework._
 import com.weiglewilczek.scalamodules._
-import api.HelloService
 
 class HelloActivator extends BundleActivator {
   var serviceRegistration:ServiceRegistration = _
 
   def start(context: BundleContext) {
     println("STARTING")
-    val polite = new HelloService {
-      def sayHello: String = "I greet you good sir!"
-    }
+    val polite = new HelloResource
 
     serviceRegistration = context createService polite
 

@@ -20,8 +20,9 @@
 
     <repositories>
         <repository>
-            <id>Maven central</id>
-            <url>http://repo1.maven.org/maven2</url>
+            <name>Amdatu Distributions</name>
+            <url>http://repository.amdatu.org/maven2</url>
+            <id>amdatu.releases</id>
         </repository>
         <repository>
             <id>Scala-tools</id>
@@ -56,18 +57,23 @@
             <version>2.0.3</version>
             <scope>compile</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.weiglewilczek.slf4s</groupId>-->
-            <!--<artifactId>slf4s_2.9.1</artifactId>-->
-            <!--<version>1.0.7</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.slf4j</groupId>-->
-            <!--<artifactId>slf4j-simple</artifactId>-->
-            <!--<version>1.6.4</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.amdatu.web</groupId>
+            <artifactId>org.amdatu.web.jaxrs</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.amdatu.web</groupId>
+            <artifactId>org.amdatu.web.jaxrs</artifactId>
+            <version>1.0.1</version>
+            <!--<scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.amdatu.web</groupId>
+            <artifactId>org.amdatu.web.wink</artifactId>
+            <version>1.0.1</version>
+            <!--<scope>provided</scope>-->
+        </dependency>
     </dependencies>
 
     <build>

@@ -29,8 +29,8 @@
                         <Bundle-Name>${pom.name}</Bundle-Name>
                         <Bundle-Version>${pom.version}</Bundle-Version>
                         <Bundle-Activator>internal.HelloActivator</Bundle-Activator>
-                        <!--<Export-Package>api</Export-Package>-->
-                        <!--<Import-Package></Import-Package>-->
+                        <!--<Export-Package>istuff.api</Export-Package>-->
+                        <!--<Import-Package>javax.ws.rs.*</Import-Package>-->
                         <!--<Embed-Dependency>-->
                         <!--</Embed-Dependency>-->
                     </instructions>
