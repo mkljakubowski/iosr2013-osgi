@@ -6,12 +6,14 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>${pom.artifactId}</name>
+    <name>${project.artifactId}</name>
     <description>iStuff Parent</description>
 
     <modules>
-        <module>pl.edu.agh.istuff.api</module>
-        <module>pl.edu.agh.istuff.hello</module>
+        <module>api</module>
+        <module>hello</module>
+        <module>widgetService</module>
+        <module>viewService</module>
     </modules>
 
     <properties>
@@ -19,11 +21,6 @@
     </properties>
 
     <repositories>
-        <repository>
-            <name>Amdatu Distributions</name>
-            <url>http://repository.amdatu.org/maven2</url>
-            <id>amdatu.releases</id>
-        </repository>
         <repository>
             <id>Scala-tools</id>
             <url>https://oss.sonatype.org/content/groups/scala-tools</url>
@@ -66,19 +63,19 @@
             <groupId>org.amdatu.web</groupId>
             <artifactId>org.amdatu.web.jaxrs</artifactId>
             <version>1.0.1</version>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.amdatu.web</groupId>
             <artifactId>org.amdatu.web.wink</artifactId>
             <version>1.0.1</version>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main</sourceDirectory>
-        <testSourceDirectory>src/test</testSourceDirectory>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>

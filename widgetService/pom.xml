@@ -6,14 +6,19 @@
         <artifactId>parent</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>api</artifactId>
+    <artifactId>widget.service</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
-    <name>${pom.artifactId}</name>
+    <name>${project.artifactId}</name>
     <description>iStuff API</description>
 
     <dependencies>
+        <dependency>
+            <groupId>pl.edu.agh.istuff</groupId>
+            <artifactId>api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -25,12 +30,14 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Name>${pom.name}</Bundle-Name>
-                        <Bundle-Version>${pom.version}</Bundle-Version>
-                        <Bundle-Activator>internal.HelloActivator</Bundle-Activator>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.name}</Bundle-Name>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-Activator>istuff.widget.service.internal.Activator</Bundle-Activator>
                         <!--<Export-Package>istuff.api</Export-Package>-->
-                        <!--<Import-Package></Import-Package>-->
+                        <!--<Import-Package>-->
+                            <!--istuff.api.*-->
+                        <!--</Import-Package>-->
                         <!--<Embed-Dependency>-->
                         <!--</Embed-Dependency>-->
                     </instructions>

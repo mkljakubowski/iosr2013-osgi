@@ -6,11 +6,11 @@
         <artifactId>parent</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>hello</artifactId>
+    <artifactId>api</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
-    <name>${pom.artifactId}</name>
+    <name>${project.artifactId}</name>
     <description>iStuff API</description>
 
     <dependencies>
@@ -28,11 +28,9 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>internal.HelloActivator</Bundle-Activator>
-                        <!--<Export-Package>istuff.api</Export-Package>-->
-                        <!--<Import-Package>-->
-                            <!--javax.ws.rs.*-->
-                        <!--</Import-Package>-->
+                        <!--<Bundle-Activator>internal.HelloActivator</Bundle-Activator>-->
+                        <Export-Package>istuff.api.*</Export-Package>
+                        <!--<Import-Package></Import-Package>-->
                         <!--<Embed-Dependency>-->
                         <!--</Embed-Dependency>-->
                     </instructions>

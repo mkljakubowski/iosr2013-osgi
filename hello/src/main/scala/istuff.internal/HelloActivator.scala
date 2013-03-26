@@ -9,16 +9,11 @@ class HelloActivator extends BundleActivator {
   var serviceRegistration:ServiceRegistration = _
 
   def start(context: BundleContext) {
-    println("STARTING")
     val bundle = new HelloResource
+    serviceRegistration = context.createService(bundle)
 
-    serviceRegistration = context createService bundle
-
-    println("REGISTERED")
   }
 
   def stop(context: BundleContext) {
-    println("STOPPED")
-    println("UNREGISTERED")
   }
 }
