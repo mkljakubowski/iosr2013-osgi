@@ -7,5 +7,5 @@ import core.MediaType
 class HelloResource {
 
   @GET @Produces(Array(MediaType.TEXT_PLAIN))
-  def hello = "Hello world!"
+  def hello = "Hello world in general!"
 }
