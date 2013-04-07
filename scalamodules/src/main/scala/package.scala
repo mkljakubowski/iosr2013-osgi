@@ -131,6 +131,40 @@ package object scalamodules {
           result
         }
       }
+    } //finally context ungetService serviceReference
+  }
+
+  private[scalamodules] def invokeServiceUnget[I, T](
+                                                 serviceReference: ServiceReference,
+                                                 f: I => T,
+                                                 context: BundleContext): Option[T] = {
+
+    assert(serviceReference != null, "The ServiceReference must not be null!")
+    assert(f != null, "The function to be applied to the service must not be null!")
+    assert(context != null, "The BundleContext must not be null!")
+
+    try {
+      context getService serviceReference match {
+        case null => {
+          logger warn "Could not get service for ServiceReference %s!".format(serviceReference)
+          None
+        }
+        case service => {
+          val result = Some(f(service.asInstanceOf[I]))
+          logger info "Invoked service for  ServiceReference %s!".format(serviceReference)
+          result
+        }
+      }
     } finally context ungetService serviceReference
   }
+
+  private[scalamodules] def serviceUnget[I, T]( serviceReference: ServiceReference,
+                                                      context: BundleContext) = {
+
+    assert(serviceReference != null, "The ServiceReference must not be null!")
+    assert(context != null, "The BundleContext must not be null!")
+
+    context ungetService serviceReference
+  }
+
 }
