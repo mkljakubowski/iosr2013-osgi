@@ -39,7 +39,9 @@
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Bundle-Activator>istuff.view.service.internal.Activator</Bundle-Activator>
+                        <!--<_include>src/main/manifest/MANIFEST.MF</_include>-->
                         <!--<Export-Package>istuff.api</Export-Package>-->
+                        <!--<Private-Package>htmls,htmls.js,istuff.view.service.internal</Private-Package>-->
                         <!--<Import-Package>-->
                         <!--javax.ws.rs.*-->
                         <!--</Import-Package>-->
