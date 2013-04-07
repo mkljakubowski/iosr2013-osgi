@@ -1,10 +1,13 @@
 *.class
 
+hello
 # Package Files #
 *.jar
 *.war
 *.ear
 *.iml
-**/target/**/*
+api/target
+target
+felix-cache
 
 .idea
