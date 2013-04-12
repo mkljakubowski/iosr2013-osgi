@@ -14,7 +14,6 @@
         <!--<module>hello</module>-->
         <module>widgetService</module>
         <module>viewService</module>
-        <module>Felix_Tutorial</module>
         <!--<module>resourceProvicer</module>-->
     </modules>
 
