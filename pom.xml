@@ -31,19 +31,19 @@
     <dependencies>
         <dependency>
             <groupId>org.fusesource.scalate</groupId>
-            <artifactId>scalate-wikitext_2.10</artifactId>
+            <artifactId>scalate-wikitext_2.9</artifactId>
             <version>1.6.1</version>
         </dependency>
         <dependency>
             <groupId>org.fusesource.scalate</groupId>
-            <artifactId>scalate-page_2.10</artifactId>
+            <artifactId>scalate-page_2.9</artifactId>
             <version>1.6.1</version>
         </dependency>
 
         <!-- testing -->
         <dependency>
             <groupId>org.fusesource.scalate</groupId>
-            <artifactId>scalate-test_2.10</artifactId>
+            <artifactId>scalate-test_2.9</artifactId>
             <version>1.6.1</version>
             <scope>test</scope>
         </dependency>
