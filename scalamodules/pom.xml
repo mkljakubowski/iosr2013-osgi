@@ -27,6 +27,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>2.9.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.scala-tools.testing</groupId>
             <artifactId>specs_2.9.1</artifactId>
             <version>1.6.9</version>
@@ -122,12 +127,12 @@
                         <Bundle-Name>com.weiglewilczek.scalamodules</Bundle-Name>
                         <Bundle-Version>2.0.3</Bundle-Version>
                         <!--<Bundle-Activator>internal.HelloActivator</Bundle-Activator>-->
-                        <!--<Export-Package>*</Export-Package>-->
+                        <!--<Export-Package>ch.epfl.lamp.compiler.msil</Export-Package>-->
                         <Embed-Dependency>
                             <!--slf4j-simple;groupId=org.slf4j;inline=false,-->
                             <!--slf4j-api;groupId=org.slf4j;inline=false,-->
                             scalamodules-core_2.9.1;groupId=com.weiglewilczek.scalamodules;inline=false,
-                            slf4s_2.9.1;groupId=com.weiglewilczek.slf4s;inline=false,
+                            slf4s_2.9.1;groupId=com.weiglewilczek.slf4s;inline=false
                         </Embed-Dependency>
                     </instructions>
                 </configuration>
