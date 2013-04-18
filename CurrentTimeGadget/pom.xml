@@ -1,20 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <groupId>pl.edu.agh.istuff</groupId>
         <artifactId>parent</artifactId>
+        <groupId>pl.edu.agh.istuff</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>api</artifactId>
+    <artifactId>CurrentTimeGadget</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
-
+    <modelVersion>4.0.0</modelVersion>
     <name>${project.artifactId}</name>
-    <description>iStuff API</description>
+    <description>iStuff Gadget</description>
 
-    <dependencies>
-    </dependencies>
+
+        <dependencies>
+            <dependency>
+                <groupId>pl.edu.agh.istuff</groupId>
+                <artifactId>api</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+        </dependencies>
+
 
     <build>
         <plugins>
@@ -28,8 +34,8 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>istuff.api.Activator</Bundle-Activator>
-                        <Export-Package>istuff.api.*,istuff.api.util.*</Export-Package>
+                        <Bundle-Activator>pl.edu.agh.istuff.Activator</Bundle-Activator>
+                        <!--<Export-Package>istuff.api.*</Export-Package>-->
                         <!--<Import-Package></Import-Package>-->
                         <!--<Embed-Dependency>-->
                         <!--</Embed-Dependency>-->
@@ -38,5 +44,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

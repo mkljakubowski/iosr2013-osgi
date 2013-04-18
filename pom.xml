@@ -11,10 +11,9 @@
 
     <modules>
         <module>api</module>
-        <!--<module>hello</module>-->
         <module>widgetService</module>
         <module>viewService</module>
-        <!--<module>resourceProvicer</module>-->
+        <module>CurrentTimeGadget</module>
     </modules>
 
     <properties>

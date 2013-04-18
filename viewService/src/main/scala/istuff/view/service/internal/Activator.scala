@@ -25,20 +25,20 @@ class HTMLGenerateServlet(context:BundleContext) extends HttpServlet{
 
     var processor : TemplateProcessor  = null
 
-    val file = new File("viewService/src/main/resources/htmls/index.html")
-    eng andApply { _.createProcessor(file)
+    val url = context.getBundle().getResource("htmls/index.html")
+    eng andApply { _.createProcessor(url)
     }   match {
       case None => println("No key with that name!")
       case Some(x) =>   processor=x
     }
 
     tcontext.put("title", "My First Document")
-    tcontext.put("text", "This is a short story about a story that was generated with a template engine.")
+    tcontext.put("text", "This is a shorter story about a story that was generated with a template engine.")
 
     resp.setContentType("text/html;charset=UTF-8")
     resp.setContentType("text/html")
     val out = resp.getWriter()
-    out.print(processor.generateString(tcontext))
+    processor.generateStream(tcontext,out)
   }
 }
 class Activator extends BundleActivator {
