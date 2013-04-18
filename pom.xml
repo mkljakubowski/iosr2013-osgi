@@ -30,24 +30,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.fusesource.scalate</groupId>
-            <artifactId>scalate-wikitext_2.9</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fusesource.scalate</groupId>
-            <artifactId>scalate-page_2.9</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-
-        <!-- testing -->
-        <dependency>
-            <groupId>org.fusesource.scalate</groupId>
-            <artifactId>scalate-test_2.9</artifactId>
-            <version>1.6.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.osgi.core</artifactId>
             <version>1.4.0</version>
@@ -117,6 +99,12 @@
             <groupId>org.amdatu.web</groupId>
             <artifactId>org.amdatu.web.wink</artifactId>
             <version>1.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.amdatu.template</groupId>
+            <artifactId>org.amdatu.template.processor</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!--<dependency>-->
