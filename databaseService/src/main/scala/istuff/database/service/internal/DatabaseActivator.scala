@@ -18,6 +18,9 @@ class DatabaseActivator extends BundleActivator{
   def start(context: BundleContext) {
     val bundle = new DatabaseImpl()
     serviceRegistration = context.createService(bundle)
+    //bundle.setData("strings", "thanking", "thank you so much!")
+    bundle.getData("strings", "name", "greeting")
+    bundle.getData("strings", "name", "thanking")
   }
 
   def stop(context: BundleContext) {

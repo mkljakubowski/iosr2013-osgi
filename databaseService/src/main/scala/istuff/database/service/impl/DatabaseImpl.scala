@@ -28,19 +28,29 @@ class DatabaseImpl extends DatabaseApi {
   else
     println("Database " + databaseName + " connection failure.")
 
-       /*
-  def DatabaseImpl(){
-    var collections = database.getCollectionNames().toArray();
+  var collections = database.getCollectionNames().toArray();
+  collections.foreach(println)
 
-    collections.foreach(println)
+  def getData(collectionName: String, propertyName: String, propertyValue: String): String = {
+    var collection = database.getCollection(collectionName)
+    var query = new BasicDBObject(propertyName, propertyValue)
+    var coursor = collection.find(query)
+    var result = ""
+
+    coursor.hasNext match {
+      case false => result = ("Document not found in Mongo database.")
+      case true => result = coursor.next().toString()
+    }
+
+    coursor.close()
+
+    println("this is getData for: " + propertyName + ", " + propertyValue + ": " + result)
+    result
   }
-*/
 
-  def getData() {
-
-  }
-
-  def setData() {
-
+  def setData(collectionName: String, name: String, content: String) {
+    var collection = database.getCollection(collectionName)
+    var document = new BasicDBObject("name", name).append("content", content)
+    collection.insert(document)
   }
 }

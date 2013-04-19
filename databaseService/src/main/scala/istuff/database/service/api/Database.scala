@@ -8,6 +8,6 @@ package istuff.database.service.api
  * To change this template use File | Settings | File Templates.
  */
 trait DatabaseApi {
-  def getData()
-  def setData()
+  def getData(collection : String, propertyName : String, propertyValue : String) : String
+  def setData(collection : String, name : String, content : String)
 }
