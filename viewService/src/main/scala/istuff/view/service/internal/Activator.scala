@@ -53,20 +53,20 @@ class Activator extends BundleActivator {
 
 
 
-   httpService = context findService withInterface[HttpService]
-    httpService andApply { _.registerServlet("/hell",new HTMLGenerateServlet(context),null,null) } match {
-      case None => println("res fail")
-      case _ => println("res success")
-    }
-
-    httpService andApply { _.registerResources("/","/htmls",null) } match {
-      case None => println("res fail")
-      case _ => println("res success")
-    }
+//   httpService = context findService withInterface[HttpService]
+//    httpService andApply { _.registerServlet("/hell",new HTMLGenerateServlet(context),null,null) } match {
+//      case None => println("res fail")
+//      case _ => println("res success")
+//    }
+//
+//    httpService andApply { _.registerResources("/htmls","/htmls",null) } match {
+//      case None => println("res fail")
+//      case _ => println("res success")
+//    }
 
   }
 
   def stop(context: BundleContext) {
-    httpService andUnget
+//    httpService andUnget
   }
 }

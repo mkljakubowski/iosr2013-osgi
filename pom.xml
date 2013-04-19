@@ -15,6 +15,7 @@
         <module>viewService</module>
         <module>CurrentTimeGadget</module>
         <module>databaseService</module>
+        <module>opensocialtest</module>
     </modules>
 
     <properties>
@@ -91,6 +92,16 @@
             <version>2.0.4</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.dependencymanager</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.configadmin</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
             <groupId>org.amdatu.web</groupId>
             <artifactId>org.amdatu.web.jaxrs</artifactId>
             <version>1.0.1</version>
@@ -107,6 +118,13 @@
             <version>1.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.osgi</groupId>-->
+            <!--<artifactId>org.osgi.cmpn</artifactId>-->
+            <!--<version>4.2.1</version>-->
+        <!--</dependency>-->
+
+
         <!--<dependency>-->
             <!--<groupId>org.amdatu.web</groupId>-->
             <!--<artifactId>org.amdatu.web.resource</artifactId>-->
