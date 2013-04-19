@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>pl.edu.agh.istuff</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>opensocialtest</artifactId>
+    <packaging>bundle</packaging>
+    <name>${project.artifactId}</name>
+    <description>opensocial demo</description>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.amdatu.opensocial</groupId>
+            <artifactId>org.amdatu.opensocial</artifactId>
+            <version>1.0.7</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.clerezza.ext</groupId>
+            <artifactId>org.json.simple</artifactId>
+            <version>0.3-incubating</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Name>${project.name}</Bundle-Name>
+                        <Bundle-Version>${project.version}</Bundle-Version>
+                        <Bundle-Activator>pl.edu.agh.istuff.social.Activator</Bundle-Activator>
+                        <!--<Export-Package>istuff.api.*</Export-Package>-->
+                        <!--<Import-Package></Import-Package>-->
+                        <!--<Embed-Dependency>-->
+                        <!--</Embed-Dependency>-->
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
