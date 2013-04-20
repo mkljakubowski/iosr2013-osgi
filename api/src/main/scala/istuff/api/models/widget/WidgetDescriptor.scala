@@ -1,8 +1,16 @@
 package istuff.api.models.widget
 
+import javax.servlet.http.HttpServlet
+import org.osgi.framework.BundleContext
 
-class WidgetDescriptor
-(name: String)
+
+case class WidgetDescriptor(
+    name: String,
+    version: Int,
+    owner: String,
+    servlets: Map[String, HttpServlet],
+    resources: List[String]
+)
 {
 
 }

@@ -1,4 +1,4 @@
-package istuff.view.service.internal
+package istuff.view.service.impl
 
 import org.osgi.framework.BundleContext
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}

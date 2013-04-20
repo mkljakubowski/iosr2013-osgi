@@ -10,9 +10,10 @@
     <packaging>bundle</packaging>
     <modelVersion>4.0.0</modelVersion>
     <name>${project.artifactId}</name>
-    <description>iStuff Gadget</description>
+    <description>iStuff Current Time Gadget</description>
 
     <dependencies>
+        <!--should have none - all are in gadgets parent -->
     </dependencies>
 
     <build>
@@ -27,11 +28,7 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>pl.edu.agh.istuff.Activator</Bundle-Activator>
-                        <!--<Export-Package>istuff.api.*</Export-Package>-->
-                        <!--<Import-Package></Import-Package>-->
-                        <!--<Embed-Dependency>-->
-                        <!--</Embed-Dependency>-->
+                        <Bundle-Activator>pl.edu.agh.istuff.time.internal.Activator</Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>
