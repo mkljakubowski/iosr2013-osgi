@@ -16,11 +16,6 @@
     <dependencies>
         <dependency>
             <groupId>pl.edu.agh.istuff</groupId>
-            <artifactId>api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.agh.istuff</groupId>
             <artifactId>widgetService</artifactId>
             <version>1.0.0</version>
         </dependency>

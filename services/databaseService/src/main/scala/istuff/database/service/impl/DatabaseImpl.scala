@@ -2,55 +2,45 @@ package istuff.database.service.impl
 
 import com.mongodb._
 import istuff.database.service.api._
+import istuff.api.util.Loggable
+import org.osgi.framework.BundleContext
 
-/**
- * Created with IntelliJ IDEA.
- * User: bursant
- * Date: 4/19/13
- * Time: 11:23 AM
- * To change this template use File | Settings | File Templates.
- */
-class DatabaseImpl extends DatabaseApi {
+class DatabaseImpl() extends Database with Loggable {
 
-  var databaseAddress = "ds057847.mongolab.com"
-  var databasePort = 57847
-  var databaseName = "iosr-osgi-test"
-  var user = "stefan"
-  var password = Array('a', 'l', 'a', '1', '2', '3')
+  val databaseAddress = "ds057847.mongolab.com"
+  val databasePort = 57847
+  val databaseName = "iosr-osgi-test"
+  val user = "stefan"
+  val password = "ala123".toArray
 
-  var mongoClient = new MongoClient(databaseAddress, databasePort)
-  var database = mongoClient.getDB(databaseName)
+  val mongoClient = new MongoClient(databaseAddress, databasePort)
+  val database = mongoClient.getDB(databaseName)
 
-  var authenticationResult = database.authenticate(user, password)
+  database.authenticate(user, password) match {
+    case true => logger info ("Database " + databaseName + " connected.")
+    case false => logger info ("Database " + databaseName + " connection failure.")
+  }
 
-  if(authenticationResult)
-    println("Database " + databaseName + " connected.")
-  else
-    println("Database " + databaseName + " connection failure.")
+  def collections = database.getCollectionNames().toArray()
 
-  var collections = database.getCollectionNames().toArray();
-  collections.foreach(println)
+  def getData(collectionName: String, propertyName: String, propertyValue: String): Option[String] = database.synchronized {
+    val collection = database.getCollection(collectionName)
+    val query = new BasicDBObject(propertyName, propertyValue)
+    val coursor = collection.find(query)
 
-  def getData(collectionName: String, propertyName: String, propertyValue: String): String = {
-    var collection = database.getCollection(collectionName)
-    var query = new BasicDBObject(propertyName, propertyValue)
-    var coursor = collection.find(query)
-    var result = ""
-
-    coursor.hasNext match {
-      case false => result = ("Document not found in Mongo database.")
-      case true => result = coursor.next().toString()
+    val result = coursor.hasNext match {
+      case false => None
+      case true => Option(coursor.next().toString())
     }
-
     coursor.close()
 
-    println("this is getData for: " + propertyName + ", " + propertyValue + ": " + result)
     result
   }
 
-  def setData(collectionName: String, name: String, content: String) {
-    var collection = database.getCollection(collectionName)
-    var document = new BasicDBObject("name", name).append("content", content)
+  def setData(collectionName: String, name: String, content: String) = database.synchronized {
+    val collection = database.getCollection(collectionName)
+    val document = new BasicDBObject("name", name).append("content", content)
     collection.insert(document)
   }
+
 }

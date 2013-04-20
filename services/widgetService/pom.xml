@@ -14,11 +14,6 @@
     <description>iStuff API</description>
 
     <dependencies>
-        <dependency>
-            <groupId>pl.edu.agh.istuff</groupId>
-            <artifactId>api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
 
     <build>

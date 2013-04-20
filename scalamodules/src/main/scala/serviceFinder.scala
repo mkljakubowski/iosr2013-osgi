@@ -37,7 +37,7 @@ class ServiceFinder[I <: AnyRef](
         None
       }
       case ref => {
-        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
+//        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
         invokeService(ref, f, context)
       }
     }
@@ -51,7 +51,7 @@ class ServiceFinder[I <: AnyRef](
         None
       }
       case ref => {
-        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
+//        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
         invokeServiceUnget(ref, f, context)
       }
     }
@@ -64,7 +64,7 @@ class ServiceFinder[I <: AnyRef](
         None
       }
       case ref => {
-        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
+//        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
         serviceUnget(ref, context)
       }
     }
@@ -83,7 +83,7 @@ class ServiceFinder[I <: AnyRef](
         None
       }
       case ref => {
-        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
+//        logger info "Found a ServiceReference for interface %s.".format(interface.getName)
         invokeService(ref, f(_: I, ref.properties), context)
       }
     }
@@ -122,7 +122,7 @@ private[scalamodules] class ServicesFinder[I <: AnyRef](
         Nil
       }
       case refs => {
-        logger info "Found %s ServiceReferences for interface %s and optional filter %s.".format(refs.size, interface.getName, filter)
+//        logger info "Found %s ServiceReferences for interface %s and optional filter %s.".format(refs.size, interface.getName, filter)
         refs.toList flatMap { invokeService(_, f, context) }
       }
     }
@@ -141,7 +141,7 @@ private[scalamodules] class ServicesFinder[I <: AnyRef](
         Nil
       }
       case refs => {
-        logger info "Found %s ServiceReferences for interface %s and optional filter %s.".format(refs.size, interface.getName, filter)
+//        logger info "Found %s ServiceReferences for interface %s and optional filter %s.".format(refs.size, interface.getName, filter)
         refs.toList flatMap { ref => invokeService(ref, f(_: I, ref.properties), context) }
       }
     }

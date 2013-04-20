@@ -92,7 +92,7 @@ private[scalamodules] class ServicesWatcher[I <: AnyRef](
         val serviceEvent = AddingService(service.asInstanceOf[I], serviceReference.properties)
         if (handler.isDefinedAt(serviceEvent)) {
           handler(serviceEvent)
-          logger info "Handled AddingService event."
+//          logger info "Handled AddingService event."
         }
         service
       }
@@ -101,7 +101,7 @@ private[scalamodules] class ServicesWatcher[I <: AnyRef](
         val serviceEvent = ServiceModified(service.asInstanceOf[I], serviceReference.properties)
         if (handler.isDefinedAt(serviceEvent)) {
           handler(serviceEvent)
-          logger info "Handled ServiceModified event."
+//          logger info "Handled ServiceModified event."
         }
       }
 
@@ -109,7 +109,7 @@ private[scalamodules] class ServicesWatcher[I <: AnyRef](
         val serviceEvent = ServiceRemoved(service.asInstanceOf[I], serviceReference.properties)
         if (handler.isDefinedAt(serviceEvent)) {
           handler(serviceEvent)
-          logger info "Handled ServiceRemoved event."
+//          logger info "Handled ServiceRemoved event."
         }
         context ungetService serviceReference
       }

@@ -1,8 +1,8 @@
-package istuff.api
+package istuff.api.internal
 
 import org.osgi.framework._
-import util.ResourceApiImpl
 import com.weiglewilczek.scalamodules._
+import istuff.api.util.ResourceApiImpl
 
 class Activator extends BundleActivator {
 

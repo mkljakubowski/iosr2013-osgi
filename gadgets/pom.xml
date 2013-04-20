@@ -6,7 +6,7 @@
         <groupId>pl.edu.agh.istuff</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>services</artifactId>
+    <artifactId>gadgets</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
@@ -14,9 +14,7 @@
     <description>iStuff Parent</description>
 
     <modules>
-        <module>widgetService</module>
-        <module>viewService</module>
-        <module>databaseService</module>
+        <module>currentTimeGadget</module>
     </modules>
 
     <properties>
@@ -35,7 +33,6 @@
             <groupId>pl.edu.agh.istuff</groupId>
             <artifactId>api</artifactId>
             <version>1.0.0</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

@@ -12,15 +12,8 @@
     <name>${project.artifactId}</name>
     <description>iStuff Gadget</description>
 
-
-        <dependencies>
-            <dependency>
-                <groupId>pl.edu.agh.istuff</groupId>
-                <artifactId>api</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-        </dependencies>
-
+    <dependencies>
+    </dependencies>
 
     <build>
         <plugins>

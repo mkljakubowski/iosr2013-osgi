@@ -127,7 +127,7 @@ package object scalamodules {
         }
         case service => {
           val result = Some(f(service.asInstanceOf[I]))
-          logger info "Invoked service for  ServiceReference %s!".format(serviceReference)
+//          logger info "Invoked service for  ServiceReference %s!".format(serviceReference)
           result
         }
       }
@@ -151,7 +151,7 @@ package object scalamodules {
         }
         case service => {
           val result = Some(f(service.asInstanceOf[I]))
-          logger info "Invoked service for  ServiceReference %s!".format(serviceReference)
+//          logger info "Invoked service for  ServiceReference %s!".format(serviceReference)
           result
         }
       }

@@ -18,6 +18,13 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>2.11.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.weiglewilczek.slf4s</groupId>
+            <artifactId>slf4s_2.9.1</artifactId>
+            <version>1.0.7</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -34,14 +41,6 @@
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
                         <Bundle-Activator>istuff.database.service.internal.DatabaseActivator</Bundle-Activator>
-                        <!--<_include>src/main/manifest/MANIFEST.MF</_include>-->
-                        <!--<Export-Package>istuff.api</Export-Package>-->
-                        <!--<Private-Package>htmls,htmls.js,istuff.view.service.internal</Private-Package>-->
-                        <!--<Import-Package>-->
-                        <!--javax.ws.rs.*-->
-                        <!--</Import-Package>-->
-                        <!--<Embed-Dependency>-->
-                        <!--</Embed-Dependency>-->
                     </instructions>
                 </configuration>
             </plugin>
