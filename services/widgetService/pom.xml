@@ -3,10 +3,10 @@
 
     <parent>
         <groupId>pl.edu.agh.istuff</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>services</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>view.service</artifactId>
+    <artifactId>widgetService</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
@@ -17,11 +17,6 @@
         <dependency>
             <groupId>pl.edu.agh.istuff</groupId>
             <artifactId>api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.agh.istuff</groupId>
-            <artifactId>widget.service</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
@@ -38,12 +33,10 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>istuff.view.service.internal.Activator</Bundle-Activator>
-                        <!--<_include>src/main/manifest/MANIFEST.MF</_include>-->
+                        <Bundle-Activator>istuff.widget.service.internal.Activator</Bundle-Activator>
                         <!--<Export-Package>istuff.api</Export-Package>-->
-                        <!--<Private-Package>htmls,htmls.js,istuff.view.service.internal</Private-Package>-->
                         <!--<Import-Package>-->
-                        <!--javax.ws.rs.*-->
+                            <!--istuff.api.*-->
                         <!--</Import-Package>-->
                         <!--<Embed-Dependency>-->
                         <!--</Embed-Dependency>-->

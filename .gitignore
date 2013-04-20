@@ -9,5 +9,7 @@ hello
 api/target
 target
 felix-cache
+*~
+*.ipr
 
 .idea

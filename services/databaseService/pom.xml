@@ -3,21 +3,21 @@
 
     <parent>
         <groupId>pl.edu.agh.istuff</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>services</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>widget.service</artifactId>
+    <artifactId>databaseService</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
     <name>${project.artifactId}</name>
-    <description>iStuff API</description>
+    <description>database bundle</description>
 
     <dependencies>
         <dependency>
-            <groupId>pl.edu.agh.istuff</groupId>
-            <artifactId>api</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.11.0</version>
         </dependency>
     </dependencies>
 
@@ -33,10 +33,12 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>istuff.widget.service.internal.Activator</Bundle-Activator>
+                        <Bundle-Activator>istuff.database.service.internal.DatabaseActivator</Bundle-Activator>
+                        <!--<_include>src/main/manifest/MANIFEST.MF</_include>-->
                         <!--<Export-Package>istuff.api</Export-Package>-->
+                        <!--<Private-Package>htmls,htmls.js,istuff.view.service.internal</Private-Package>-->
                         <!--<Import-Package>-->
-                            <!--istuff.api.*-->
+                        <!--javax.ws.rs.*-->
                         <!--</Import-Package>-->
                         <!--<Embed-Dependency>-->
                         <!--</Embed-Dependency>-->
