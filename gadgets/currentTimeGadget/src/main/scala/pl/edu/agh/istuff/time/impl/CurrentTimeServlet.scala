@@ -8,8 +8,9 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 import istuff.api.util.Loggable
 import java.net.URL
+import org.osgi.framework.Bundle
 
-class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine],uri : URL) extends HttpServlet with Loggable {
+class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine], self: Bundle) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
 
@@ -22,7 +23,7 @@ class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine],uri : URL
     var processor: TemplateProcessor = null
 
 
-    templateEngine andApply { _.createProcessor(uri)  } match {
+    templateEngine andApply { _.createProcessor(self.getResource("index.html"))  } match {
       case None => logger warn("No key with that name!")
       case Some(x) => processor = x
     }

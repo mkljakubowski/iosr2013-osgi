@@ -22,7 +22,7 @@ class Activator extends BundleActivator with Loggable {
     database = context findService classOf[Database]
 
     descriptor = new WidgetDescriptor("currentTime",1,"mikolaj",
-      Map(("time", new CurrentTimeServlet(templateEngine,context.getBundle().getResource("index.html")))),
+      Map(("time", new CurrentTimeServlet(templateEngine, context.getBundle()))),
       List(""))
 
     widgetService andApply { _.registerWidget(descriptor, context) } match {
