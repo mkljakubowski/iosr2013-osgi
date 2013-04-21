@@ -8,7 +8,7 @@ case class WidgetDescriptor(
     name: String,
     version: Int,
     owner: String,
-    servlets: List[(String, HttpServlet)],
+    servlets: Map[String, HttpServlet],
     resources: List[String]
 )
 {
