@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import istuff.api.util.Loggable
 import java.net.URL
 
-class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine]) extends HttpServlet with Loggable {
+class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine],uri : URL) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
 
@@ -20,7 +20,9 @@ class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine]) extends 
     }
 
     var processor: TemplateProcessor = null
-    templateEngine andApply { _.createProcessor(new URL("http://localhost:8080/currentTime/index.html"))  } match {
+
+
+    templateEngine andApply { _.createProcessor(uri)  } match {
       case None => logger warn("No key with that name!")
       case Some(x) => processor = x
     }
