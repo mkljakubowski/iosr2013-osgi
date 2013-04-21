@@ -1,7 +1,6 @@
 package istuff.widget.service.impl
 
 import _root_.istuff.widget.service.api.WidgetService
-import istuff.api.models.widget._
 import istuff.api.util.Loggable
 import org.osgi.framework.BundleContext
 import com.weiglewilczek.scalamodules._

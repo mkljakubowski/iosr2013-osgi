@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iStuff Main Page</title>
+</head>
+<body>
+#foreach($widget in $widgets)
+    #foreach($address in $widget.addresses())
+        <iframe src="/servlets/$widget.name()/$address"></iframe>
+    #end
+#end
+</body>
+</html>

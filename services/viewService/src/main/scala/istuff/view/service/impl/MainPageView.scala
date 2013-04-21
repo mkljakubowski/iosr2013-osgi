@@ -5,8 +5,11 @@ import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
 import org.amdatu.template.processor.{TemplateProcessor, TemplateContext, TemplateEngine}
 import com.weiglewilczek.scalamodules._
 import istuff.api.util.Loggable
+import istuff.widget.service.api.WidgetService
+import istuff.api.models.widget.WidgetDescriptor
+import scala.util.parsing.json.JSONArray
 
-class HTMLGenerateServlet(context:BundleContext) extends HttpServlet with Loggable {
+class MainPageView(context:BundleContext) extends HttpServlet with Loggable {
 
   override def doGet(req : HttpServletRequest , resp : HttpServletResponse ) {
     // Retrieve a Velocity implementation of the engine
@@ -21,15 +24,14 @@ class HTMLGenerateServlet(context:BundleContext) extends HttpServlet with Loggab
 
     var processor : TemplateProcessor  = null
 
-    val url = context.getBundle().getResource("htmls/index.html")
+    val url = context.getBundle().getResource("index.html")
     eng andApply { _.createProcessor(url)
     }   match {
       case None => logger error("No key with that name!")
       case Some(x) =>   processor=x
     }
-
-    tcontext.put("title", "My First Document")
-    tcontext.put("text", "This is a shorter story about a story that was generated with a template engine.")
+    val widgets = context findService withInterface[WidgetService] andApply { _.getAvailableWidgets() } getOrElse (List.empty[WidgetDescriptor])
+    tcontext.put("widgets", widgets.toArray)
 
     resp.setContentType("text/html;charset=UTF-8")
     resp.setContentType("text/html")
