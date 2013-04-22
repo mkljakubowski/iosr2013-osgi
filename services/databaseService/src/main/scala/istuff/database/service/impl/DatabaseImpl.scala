@@ -3,7 +3,6 @@ package istuff.database.service.impl
 import com.mongodb._
 import istuff.database.service.api._
 import istuff.api.util.Loggable
-import org.osgi.framework.BundleContext
 
 class DatabaseImpl() extends Database with Loggable {
 
