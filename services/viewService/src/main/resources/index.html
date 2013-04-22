@@ -2,11 +2,14 @@
 <html>
 <head>
     <title>iStuff Main Page</title>
+    <link rel="stylesheet" href="/res/main.css">
+    <script src="jquery.min.js"></script>
+    <script src="main.js"></script>
 </head>
 <body>
 #foreach($widget in $widgets)
     #foreach($address in $widget.addresses())
-        <iframe src="/servlets/$widget.name()/$address"></iframe>
+        <iframe src="/servlets/$widget.name()/$address" scrolling="no"></iframe>
     #end
 #end
 </body>

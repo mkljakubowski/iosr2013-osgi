@@ -37,4 +37,5 @@ class Activator extends BundleActivator with Loggable {
     templateEngine.andUnget
     database.andUnget
   }
+
 }

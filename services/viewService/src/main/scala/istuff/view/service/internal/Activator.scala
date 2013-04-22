@@ -23,6 +23,11 @@ class Activator extends BundleActivator with Loggable {
       case _ => logger info("MainPage registered")
     }
 
+    httpService andApply { _.registerResources("/res", "/", null) } match {
+      case None => logger error("MainPage res failed to register")
+      case _ => logger info("MainPage res registered")
+    }
+
   }
 
   def stop(context: BundleContext) {
