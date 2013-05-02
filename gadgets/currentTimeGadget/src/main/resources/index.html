@@ -1,19 +1,7 @@
 <html>
 <head>
 <title>Clock</title>
-<script>
-    function GetTime() {
-        var dt = new Date();
-        document.getElementById('clock').innerHTML = IfZero(dt.getHours()) + ":" + IfZero(dt.getMinutes()) + ":" +  IfZero(dt.getSeconds());
-        timeoutID = setTimeout("GetTime()", 1000);
-    }
-
-    function IfZero(num) {
-        return ((num <= 9) ? ("0" + num) : num);
-    }
-
-</script>
-
+<script src="/currentTime/time_func.js"></script>
 <head> 
 <body alink="red" vlink="magenta" onLoad="GetTime()" >
 <div id="clock"></div>

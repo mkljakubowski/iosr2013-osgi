@@ -10,28 +10,14 @@ import istuff.api.util.Loggable
 import java.net.URL
 import org.osgi.framework.Bundle
 
-class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine], self: Bundle) extends HttpServlet with Loggable {
+class CurrentTimeServlet(name : String) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
 
-    // Create & fill the context
-    val tcontext = templateEngine andApply { _.createContext() } match {
-      case None => logger warn("No key with that name!"); null
-      case Some(x) => x
-    }
 
-    var processor: TemplateProcessor = null
-
-
-    templateEngine andApply { _.createProcessor(self.getResource("index.html"))  } match {
-      case None => logger warn("No key with that name!")
-      case Some(x) => processor = x
-    }
 
     resp.setContentType("text/html;charset=UTF-8")
-    resp.setContentType("text/html")
-    val out = resp.getWriter()
-    processor.generateStream(tcontext, out)
+    resp.sendRedirect("/"+name+"/index.html")
   }
 
 }
