@@ -28,11 +28,6 @@ class CurrentTimeServlet(templateEngine: ServiceFinder[TemplateEngine], self: Bu
       case Some(x) => processor = x
     }
 
-    tcontext.put("title", "Current time is around:")
-    val today = Calendar.getInstance().getTime()
-    val timeFormat = new SimpleDateFormat("HH:mm:ss")
-    tcontext.put("text", timeFormat.format(today))
-
     resp.setContentType("text/html;charset=UTF-8")
     resp.setContentType("text/html")
     val out = resp.getWriter()

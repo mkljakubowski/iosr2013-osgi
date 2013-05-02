@@ -29,6 +29,7 @@ class Activator extends BundleActivator with Loggable {
       case None => logger error "time widget failed to register"
       case _ => logger info "time widget registered"
     }
+
   }
 
   def stop(context: BundleContext) {
