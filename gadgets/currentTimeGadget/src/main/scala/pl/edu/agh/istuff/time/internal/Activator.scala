@@ -17,18 +17,20 @@ class Activator extends BundleActivator with Loggable {
   var descriptor: WidgetDescriptor = _
 
   def start(context: BundleContext) {
+    val name="currentTime"
     widgetService = context findService withInterface[WidgetService]
     templateEngine = context findService classOf[TemplateEngine]
     database = context findService classOf[Database]
 
-    descriptor = new WidgetDescriptor("currentTime",1,"mikolaj",
-      Map(("time", new CurrentTimeServlet(templateEngine, context.getBundle()))),
+    descriptor = new WidgetDescriptor(name,1,"mikolaj",
+      Map(("time", new CurrentTimeServlet(name))),
       List(""))
 
     widgetService andApply { _.registerWidget(descriptor, context) } match {
       case None => logger error "time widget failed to register"
       case _ => logger info "time widget registered"
     }
+
   }
 
   def stop(context: BundleContext) {
@@ -37,4 +39,5 @@ class Activator extends BundleActivator with Loggable {
     templateEngine.andUnget
     database.andUnget
   }
+
 }
