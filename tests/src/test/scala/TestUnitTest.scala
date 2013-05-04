@@ -7,6 +7,6 @@ class TestUnitTest extends FunSuite {
 
   test("TwoPlusTwo") {
     val twoPlusTwo = 2 + 2
-    assert(twoPlusTwo == 5)
+    assert(twoPlusTwo == 4)
   }
 }

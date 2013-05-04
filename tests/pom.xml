@@ -9,7 +9,7 @@
         <artifactId>services</artifactId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>UnitTestTest</artifactId>
+    <artifactId>UnitTests</artifactId>
     <version>1.0</version>
 
     <dependencies>
