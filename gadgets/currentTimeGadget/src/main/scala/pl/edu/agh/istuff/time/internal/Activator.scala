@@ -11,33 +11,42 @@ import pl.edu.agh.istuff.time.impl.CurrentTimeServlet
 
 class Activator extends BundleActivator with Loggable {
 
-  var widgetService : ServiceFinder[WidgetService] = _
-  var templateEngine : ServiceFinder[TemplateEngine] = _
-  var database : ServiceFinder[Database] = _
+  var widgetService : WidgetService = _
+  var templateEngine : TemplateEngine = _
+  var database : Database = _
   var descriptor: WidgetDescriptor = _
 
   def start(context: BundleContext) {
     val name="currentTime"
-    widgetService = context findService withInterface[WidgetService]
-    templateEngine = context findService classOf[TemplateEngine]
-    database = context findService classOf[Database]
 
     descriptor = new WidgetDescriptor(name,1,"mikolaj",
       Map(("time", new CurrentTimeServlet(name))),
       List(""))
 
-    widgetService andApply { _.registerWidget(descriptor, context) } match {
-      case None => logger error "time widget failed to register"
-      case _ => logger info "time widget registered"
+    context watchServices withInterface[TemplateEngine]  andHandle {
+      case AddingService(te, _) => {
+        templateEngine = te
+      }
+    }
+
+    context watchServices withInterface[Database]  andHandle {
+      case AddingService(db, _) => {
+        database = db
+      }
+    }
+
+    context watchServices withInterface[WidgetService]  andHandle {
+      case AddingService(ws, _) => {
+        widgetService = ws
+        widgetService.registerWidget(descriptor, context)
+        logger info "time widget registered"
+      }
     }
 
   }
 
   def stop(context: BundleContext) {
-    widgetService andApply { _.unRegisterWidget(descriptor) }
-    widgetService.andUnget
-    templateEngine.andUnget
-    database.andUnget
+    widgetService.unRegisterWidget(descriptor)
   }
 
 }
