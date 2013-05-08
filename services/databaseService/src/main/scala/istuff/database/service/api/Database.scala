@@ -1,6 +1,7 @@
 package istuff.database.service.api
 
+import com.mongodb.DB
+
 trait Database {
-  def getData(collection : String, propertyName : String, propertyValue : String) : Option[String]
-  def setData(collection : String, name : String, content : String)
+  def getDB() : DB
 }
