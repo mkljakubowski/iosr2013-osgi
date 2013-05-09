@@ -1,3 +1,5 @@
 iframe {
-    border: solid 1px black;
+    border: solid 0px black;
+    height: 500px;
+    width: 700px;
 }

@@ -3,8 +3,8 @@
 <head>
     <title>iStuff Main Page</title>
     <link rel="stylesheet" href="/res/main.css">
-    <script src="jquery.min.js"></script>
-    <script src="main.js"></script>
+    <script src="res/jquery.js"></script>
+    <script src="res/main.js"></script>
 </head>
 <body>
 #foreach($widget in $widgets)
@@ -12,5 +12,14 @@
         <iframe src="/servlets/$widget.name()/$address" scrolling="no"></iframe>
     #end
 #end
+<!--<script >-->
+    <!--// For other good browsers.-->
+    <!--$('iframe').load(function() {-->
+        <!--this.style.height =-->
+                <!--this.contentWindow.document.body.offsetHeight + 'px';-->
+        <!--this.style.width =-->
+                <!--this.contentWindow.document.body.offsetWidth + 'px';-->
+    <!--});-->
+<!--</script>-->
 </body>
 </html>

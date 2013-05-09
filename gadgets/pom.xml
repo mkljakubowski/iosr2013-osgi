@@ -15,6 +15,7 @@
 
     <modules>
         <module>currentTimeGadget</module>
+        <module>gallery</module>
     </modules>
 
     <properties>
