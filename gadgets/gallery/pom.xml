@@ -28,7 +28,7 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>pl.edu.agh.istuff.time.internal.Activator</Bundle-Activator>
+                        <Bundle-Activator>pl.edu.agh.istuff.gallery.internal.Activator</Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>
