@@ -28,6 +28,21 @@ class Activator extends BundleActivator with Loggable {
       case _ => logger info("MainPage res registered")
     }
 
+    httpService andApply { _.registerResources("/res/js", "/js", null) } match {
+      case None => logger error("MainPage res/js failed to register")
+      case _ => logger info("MainPage res/js registered")
+    }
+
+    httpService andApply { _.registerResources("/res/css/images", "/css/ui-lightness/images", null) } match {
+      case None => logger error("MainPage res/css/images failed to register")
+      case _ => logger info("MainPage res/css/images registered")
+    }
+
+    httpService andApply { _.registerResources("/res/css", "/css/ui-lightness", null) } match {
+      case None => logger error("MainPage res/css failed to register")
+      case _ => logger info("MainPage res/css registered")
+    }
+
   }
 
   def stop(context: BundleContext) {

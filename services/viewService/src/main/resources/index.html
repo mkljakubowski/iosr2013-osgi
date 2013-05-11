@@ -3,23 +3,41 @@
 <head>
     <title>iStuff Main Page</title>
     <link rel="stylesheet" href="/res/main.css">
-    <script src="res/jquery.js"></script>
-    <script src="res/main.js"></script>
+    <script src="res/js/main.js"></script>
+    <link type="text/css" href="res/css/jquery-ui-1.10.3.custom.css" rel="Stylesheet"/>
+    <script type="text/javascript" src="res/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="res/js/jquery-ui-1.10.3.custom.js"></script>
+    <style>
+        #resizable {
+            width: 200px;
+            height: 200px;
+            padding: 0.5em;
+        }
+
+        #resizable h3 {
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+    <script>
+
+            $(function () {
+                $("div").resizable();
+            });
+
+
+    </script>
 </head>
 <body>
 #foreach($widget in $widgets)
     #foreach($address in $widget.addresses())
-        <iframe src="/servlets/$widget.name()/$address" scrolling="no"></iframe>
+        <div id="$widget.name()" class="ui-widget-content">
+            <!--<script type="text/javascript">-->
+            <!--$('#$widget.name()').load("/servlets/$widget.name()/$address");-->
+            <!--</script>-->
+            <iframe src="/servlets/$widget.name()/$address" scrolling="no" style="width:100%; height:100%"></iframe>
+        </div>
     #end
 #end
-<!--<script >-->
-    <!--// For other good browsers.-->
-    <!--$('iframe').load(function() {-->
-        <!--this.style.height =-->
-                <!--this.contentWindow.document.body.offsetHeight + 'px';-->
-        <!--this.style.width =-->
-                <!--this.contentWindow.document.body.offsetWidth + 'px';-->
-    <!--});-->
-<!--</script>-->
 </body>
 </html>
