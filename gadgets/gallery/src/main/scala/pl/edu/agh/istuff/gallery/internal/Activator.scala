@@ -1,4 +1,4 @@
-package pl.edu.agh.istuff.time.internal
+package pl.edu.agh.istuff.gallery.internal
 
 import org.osgi.framework.{BundleContext, BundleActivator}
 import com.weiglewilczek.scalamodules._
