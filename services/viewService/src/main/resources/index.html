@@ -7,24 +7,11 @@
     <link type="text/css" href="res/css/jquery-ui-1.10.3.custom.css" rel="Stylesheet"/>
     <script type="text/javascript" src="res/js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="res/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <style>
-        #resizable {
-            width: 200px;
-            height: 200px;
-            padding: 0.5em;
-        }
 
-        #resizable h3 {
-            text-align: center;
-            margin: 0;
-        }
-        .ui-resizable-helper { border: 75px solid #EFEFEF; margin: -75px; }
-    </style>
     <script>
         $(function() {
-            $("div").resizable({
-                helper: "ui-resizable-helper"
-            });
+            $( "div[name='resizable']" ).resizable();
+            $( "div[name='resizable']" ).draggable();
         });
 
     </script>
@@ -32,13 +19,17 @@
 <body>
 #foreach($widget in $widgets)
     #foreach($address in $widget.addresses())
-        <div id="$widget.name()" class="ui-widget-content">
-            <!--<script type="text/javascript">-->
-            <!--$('#$widget.name()').load("/servlets/$widget.name()/$address");-->
-            <!--</script>-->
-            <iframe src="/servlets/$widget.name()/$address"  class="ui-widget-content" frameborder="no" id="test" width="100%" height="100%"></iframe>
+        <div name="resizable"   class="ui-widget-content">
+            <div id="$widget.name()">
+                <script type="text/javascript">
+                    $('#$widget.name()').load("/servlets/$widget.name()/$address");
+                </script>
+            </div>
+            <!--<iframe src="/servlets/$widget.name()/$address"  class="ui-widget-content" frameborder="no" id="test" width="100%" height="100%"></iframe>-->
         </div>
+
     #end
 #end
+
 </body>
 </html>
