@@ -8,3 +8,9 @@
 //        }
 //    });
 //});
+
+function logout(){
+    $.post('/login', function(data) {
+    });
+    window.location.href = "/";
+}

@@ -1,30 +1,18 @@
 package istuff.user.service.impl
 
 import org.osgi.framework.BundleContext
-import javax.servlet.http.{Cookie, HttpServletResponse, HttpServletRequest, HttpServlet}
-import istuff.api.util.Loggable
 import com.weiglewilczek.scalamodules._
+import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import istuff.api.util.Loggable
 import org.amdatu.template.processor.{TemplateProcessor, TemplateContext, TemplateEngine}
-import scala.Some
 import com.mongodb.{BasicDBObject, DBCollection}
 
-class LoginView (context:BundleContext, userColl : DBCollection) extends HttpServlet with Loggable {
+class RegisterView (context:BundleContext, userColl : DBCollection) extends HttpServlet with Loggable {
 
   override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
-    if(req.getParameter("user") != null && req.getParameter("pwd") != null){
-      val query = new BasicDBObject("name", req.getParameter("user")).append("pwd",req.getParameter("pwd"))
-      val res = userColl.find(query)
-      if(res.hasNext){
-        resp.addCookie(new Cookie("user", req.getParameter("user")))
-        resp.addCookie(new Cookie("auth", "true"))
-        resp.setContentType("text/html;charset=UTF-8")
-        resp.sendRedirect("/")
-      }
-      resp.addCookie(new Cookie("auth", "false"))
-      resp.setContentType("text/html;charset=UTF-8")
-      resp.sendRedirect("/login")
-    } else {
-      resp.addCookie(new Cookie("auth", "false"))
+    if(req.getParameter("user") != null && req.getParameter("pwd1") == req.getParameter("pwd2") && req.getParameter("pwd1") != null){
+      val doc = new BasicDBObject("name", req.getParameter("user")).append("pwd", req.getParameter("pwd2"))
+      userColl.insert(doc)
       resp.setContentType("text/html;charset=UTF-8")
       resp.sendRedirect("/login")
     }
@@ -43,7 +31,7 @@ class LoginView (context:BundleContext, userColl : DBCollection) extends HttpSer
 
     var processor : TemplateProcessor  = null
 
-    val url = context.getBundle().getResource("login.html")
+    val url = context.getBundle().getResource("register.html")
     eng andApply { _.createProcessor(url)
     }   match {
       case None => logger error("No key with that name!")

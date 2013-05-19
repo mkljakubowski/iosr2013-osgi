@@ -5,7 +5,8 @@ import org.osgi.framework._
 import com.weiglewilczek.scalamodules._
 import org.osgi.service.http.HttpService
 import istuff.database.service.api.Database
-import istuff.user.service.impl.LoginView
+import istuff.user.service.impl.{RegisterView, LoginView}
+import com.mongodb.DBCollection
 
 class Activator extends BundleActivator with Loggable {
   var httpService : ServiceFinder[HttpService] = null
@@ -15,7 +16,17 @@ class Activator extends BundleActivator with Loggable {
     httpService = context findService withInterface[HttpService]
     dbService = context findService withInterface[Database]
 
-    httpService andApply { _.registerServlet("/login",new LoginView(context, dbService),null,null) } match {
+    val userColl:DBCollection = dbService andApply { _.getDB() } match {
+      case Some(db) => db.getCollection("istuff.users")
+      case _ => logger error("No DB"); null
+    }
+
+    httpService andApply { _.registerServlet("/login",new LoginView(context, userColl),null,null) } match {
+      case None => logger error("Login failed to register")
+      case _ => logger info("Login registered")
+    }
+
+    httpService andApply { _.registerServlet("/register",new RegisterView(context, userColl),null,null) } match {
       case None => logger error("Login failed to register")
       case _ => logger info("Login registered")
     }

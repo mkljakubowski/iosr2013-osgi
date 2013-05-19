@@ -16,7 +16,7 @@ class MainPageView(context: BundleContext) extends HttpServlet with Loggable {
       resp.setContentType("text/html;charset=UTF-8")
       resp.sendRedirect("/login")
     } else {
-
+      val user = req.getCookies.toList.filter(c => c.getName == "user").head.getValue
       // Retrieve a Velocity implementation of the engine
       val eng = context findService classOf[TemplateEngine]
 
@@ -42,6 +42,7 @@ class MainPageView(context: BundleContext) extends HttpServlet with Loggable {
         _.getAvailableWidgets()
       } getOrElse (List.empty[WidgetDescriptor])
       tcontext.put("widgets", widgets.toArray)
+      tcontext.put("user", user)
 
       resp.setContentType("text/html;charset=UTF-8")
       resp.setContentType("text/html")
