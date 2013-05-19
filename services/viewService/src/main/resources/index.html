@@ -9,6 +9,7 @@
     <script type="text/javascript" src="res/js/jquery-ui-1.10.3.custom.min.js"></script>
 
     <script>
+
         $(function() {
             $( "div[name='resizable']" ).resizable();
             $( "div[name='resizable']" ).draggable();
@@ -21,11 +22,10 @@
     #foreach($address in $widget.addresses())
         <div name="resizable"   class="ui-widget-content">
             <div id="$widget.name()">
-                <script type="text/javascript">
-                    $('#$widget.name()').load("/servlets/$widget.name()/$address");
-                </script>
             </div>
-            <!--<iframe src="/servlets/$widget.name()/$address"  class="ui-widget-content" frameborder="no" id="test" width="100%" height="100%"></iframe>-->
+            <script type="text/javascript">
+                $('#$widget.name()').load("/servlets/$widget.name()/$widget.version()/$address");
+            </script>
         </div>
 
     #end

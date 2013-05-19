@@ -17,6 +17,7 @@
         <module>widgetService</module>
         <module>viewService</module>
         <module>databaseService</module>
+        <module>userService</module>
     </modules>
 
     <properties>

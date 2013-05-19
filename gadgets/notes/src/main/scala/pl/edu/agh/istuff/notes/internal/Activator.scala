@@ -20,7 +20,7 @@ class Activator extends BundleActivator with Loggable {
     val name="notes"
 
     descriptor = new WidgetDescriptor(name,1,"bursant",
-      Map((name, new NotesServlet(name))),
+      Map((name, new NotesServlet(name,1))),
       List(""))
 
     context watchServices withInterface[TemplateEngine]  andHandle {

@@ -10,11 +10,11 @@ import istuff.api.util.Loggable
  * Time: 1:13 PM
  * To change this template use File | Settings | File Templates.
  */
-class NotesServlet (name : String) extends HttpServlet with Loggable {
+class NotesServlet (name : String, version: Int) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
     resp.setContentType("text/html;charset=UTF-8")
-    resp.sendRedirect("/"+name+"/notes.html")
+    resp.sendRedirect("/"+name+"/" + version + "/notes.html")
   }
 
 }

@@ -1,22 +1,25 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>pl.edu.agh.istuff</groupId>
         <artifactId>services</artifactId>
+        <groupId>pl.edu.agh.istuff</groupId>
         <version>1.0.0</version>
     </parent>
-    <artifactId>viewService</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>userService</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
     <name>${project.artifactId}</name>
-    <description>iStuff View Service</description>
+    <description>iStuff User Service</description>
 
     <dependencies>
         <dependency>
             <groupId>pl.edu.agh.istuff</groupId>
-            <artifactId>widgetService</artifactId>
+            <artifactId>databaseService</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
@@ -33,7 +36,7 @@
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-Version>${project.version}</Bundle-Version>
-                        <Bundle-Activator>istuff.view.service.internal.Activator</Bundle-Activator>
+                        <Bundle-Activator>istuff.user.service.internal.Activator</Bundle-Activator>
                         <!--<_include>src/main/manifest/MANIFEST.MF</_include>-->
                         <!--<Export-Package>istuff.api</Export-Package>-->
                         <!--<Private-Package>htmls,htmls.js,istuff.view.service.internal</Private-Package>-->

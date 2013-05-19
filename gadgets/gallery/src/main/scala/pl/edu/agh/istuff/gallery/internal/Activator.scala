@@ -20,7 +20,7 @@ class Activator extends BundleActivator with Loggable {
     val name="gallery"
 
     descriptor = new WidgetDescriptor(name,1,"tomek",
-      Map((name, new GalleryServlet(name))),
+      Map((name, new GalleryServlet(name, 1))),
       List("","images"))
 
     context watchServices withInterface[TemplateEngine]  andHandle {

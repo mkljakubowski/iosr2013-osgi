@@ -1,4 +1,3 @@
-console.log("hello form js!!");
 
 //$(function() {
 //    $("#resizable").resizable();

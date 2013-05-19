@@ -20,7 +20,7 @@ class Activator extends BundleActivator with Loggable {
     val name="currentTime"
 
     descriptor = new WidgetDescriptor(name,1,"mikolaj",
-      Map(("time", new CurrentTimeServlet(name))),
+      Map(("time", new CurrentTimeServlet(name,1))),
       List(""))
 
     context watchServices withInterface[TemplateEngine]  andHandle {

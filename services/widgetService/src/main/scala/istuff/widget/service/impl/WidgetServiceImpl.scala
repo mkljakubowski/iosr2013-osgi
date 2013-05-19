@@ -14,20 +14,20 @@ class WidgetServiceImpl extends WidgetService with Loggable {
     val httpService = context findService withInterface[HttpService]
 
     widget.servlets.foreach{ servlet =>
-      httpService andApply { _.registerServlet("/servlets/" + widget.name + "/" + servlet._1, servlet._2, null, null) } match {
-        case None => logger error ("Servlet failed to register " + widget.name + " at " + "/servlets/" + widget.name + "/" + servlet._1 )
-        case _ => logger info ("Servlet registered for gadget " + widget.name + " at " + "/servlets/" + widget.name + "/" + servlet._1 )
+      httpService andApply { _.registerServlet("/servlets/" + widget.name + "/" + widget.version + "/" + servlet._1, servlet._2, null, null) } match {
+        case None => logger error ("Servlet failed to register " + widget.name + " at " + "/servlets/" + widget.name + "/" + widget.version + "/" + servlet._1 )
+        case _ => logger info ("Servlet registered for gadget " + widget.name + " at " + "/servlets/" + widget.name + "/" + widget.version + "/" + servlet._1 )
       }
     }
 
     widget.resources.foreach{ resource =>
       val path = resource match {
-        case "" => "/"+widget.name
-        case _ => "/"+widget.name+"/"+resource
+        case "" => "/" + widget.name + "/" + widget.version
+        case _ => "/" + widget.name + "/" + widget.version + "/" + resource
       }
       httpService andApply { _.registerResources(path, "/"+resource, null) } match {
-        case None => logger error("resources failed to register for " + widget.name + " at " + "/" + widget.name + "/" + resource)
-        case _ => logger info("resources registered for " + widget.name + " at " + "/" + widget.name + "/" + resource)
+        case None => logger error("resources failed to register for " + widget.name + " at " + path)
+        case _ => logger info("resources registered for " + widget.name + " at " + path)
       }
     }
 
