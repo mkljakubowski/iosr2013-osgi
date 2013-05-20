@@ -12,7 +12,7 @@ import scala.util.parsing.json.JSONArray
 class MainPageView(context: BundleContext) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
-    if (req.getCookies.toList.filter(c => c.getName == "auth" && c.getValue == "true").isEmpty) {
+    if (req.getCookies == null || req.getCookies != null && req.getCookies.toList.filter(c => c != null && c.getName == "auth" && c.getValue == "true").isEmpty) {
       resp.setContentType("text/html;charset=UTF-8")
       resp.sendRedirect("/login")
     } else {
