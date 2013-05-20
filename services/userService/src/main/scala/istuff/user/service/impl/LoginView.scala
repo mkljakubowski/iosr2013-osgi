@@ -26,7 +26,7 @@ class LoginView (context:BundleContext, userColl : DBCollection) extends HttpSer
     } else {
       resp.addCookie(new Cookie("auth", "false"))
       resp.setContentType("text/html;charset=UTF-8")
-      resp.sendRedirect("/login")
+      resp.sendRedirect("/")
     }
   }
 
