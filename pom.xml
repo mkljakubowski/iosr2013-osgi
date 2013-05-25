@@ -15,6 +15,7 @@
         <module>services</module>
         <module>gadgets</module>
         <module>tests</module>
+        <module>databaseUsage</module>
     </modules>
 
     <properties>
