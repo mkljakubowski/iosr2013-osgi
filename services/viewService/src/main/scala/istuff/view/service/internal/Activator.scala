@@ -10,15 +10,25 @@ import org.amdatu.template.processor.{TemplateProcessor, TemplateContext, Templa
 import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
 import java.io.File
 import istuff.api.util.Loggable
+import istuff.database.service.api.Database
+import com.mongodb.DBCollection
 
 class Activator extends BundleActivator with Loggable {
   var serviceRegistration: ServiceRegistration = _
   var httpService : ServiceFinder[HttpService] = null
+  var dbService : ServiceFinder[Database] = null
 
   def start(context: BundleContext) {
 
+    dbService = context findService withInterface[Database]
+
+    val userWidgetColl:DBCollection = dbService andApply { _.getDB() } match {
+      case Some(db) => db.getCollection("istuff.users.widgets")
+      case _ => logger error("No DB"); null
+    }
+
     httpService = context findService withInterface[HttpService]
-    httpService andApply { _.registerServlet("/",new MainPageView(context),null,null) } match {
+    httpService andApply { _.registerServlet("/",new MainPageView(context, userWidgetColl),null,null) } match {
       case None => logger error("MainPage failed to register")
       case _ => logger info("MainPage registered")
     }

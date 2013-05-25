@@ -19,6 +19,9 @@
 </head>
 <body>
 Welcome $user! <span onclick="logout()">Logout</span><br>
+
+<span><a href="/widgets">Choose widgets</a></span><br>
+
 #foreach($widget in $widgets)
     #foreach($address in $widget.addresses())
         <div name="resizable"   class="ui-widget-content">

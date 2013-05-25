@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+         $user, choose your widgets:
+         <form method="POST" action="/widgets">
+             #set( $delimeter = "|")
+             #foreach($widget in $widgets)
+                <label><input type="checkbox" name=$widget.name()$delimeter$widget.version() />$widget.name() v. $widget.version()</label><br>
+             #end
+             <input type="submit" value="Submit"/>
+         </form>
+</body>
+</html>

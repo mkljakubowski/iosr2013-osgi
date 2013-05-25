@@ -8,8 +8,11 @@ import istuff.api.util.Loggable
 import istuff.widget.service.api.WidgetService
 import istuff.api.models.widget.WidgetDescriptor
 import scala.util.parsing.json.JSONArray
+import com.mongodb.{BasicDBObject, DBCollection}
+import istuff.database.service.api.Database
+import com.weiglewilczek.scalamodules
 
-class MainPageView(context: BundleContext) extends HttpServlet with Loggable {
+class MainPageView(context: BundleContext, userWidgetColl : DBCollection) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
     if (req.getCookies == null || req.getCookies != null && req.getCookies.toList.filter(c => c != null && c.getName == "auth" && c.getValue == "true").isEmpty) {
@@ -41,7 +44,20 @@ class MainPageView(context: BundleContext) extends HttpServlet with Loggable {
       val widgets = context findService withInterface[WidgetService] andApply {
         _.getAvailableWidgets()
       } getOrElse (List.empty[WidgetDescriptor])
-      tcontext.put("widgets", widgets.toArray)
+
+      val widgetPreferences = userWidgetColl.find(new BasicDBObject("user", user))
+
+      var userWidgets = Set[WidgetDescriptor]()
+
+      while(widgetPreferences.hasNext){
+        val currentWidget = widgetPreferences.next
+        for(widget <- widgets){
+          if(widget.name == currentWidget.get("widget") && widget.version.toString == currentWidget.get("version"))
+            userWidgets += widget
+        }
+      }
+
+      tcontext.put("widgets", userWidgets.toArray)
       tcontext.put("user", user)
 
       resp.setContentType("text/html;charset=UTF-8")
