@@ -10,6 +10,7 @@ import org.osgi.service.http.HttpService
 class WidgetServiceImpl extends WidgetService with Loggable {
   var registredWidgets = List.empty[(WidgetDescriptor, ServiceFinder[HttpService])]
 
+  //TODO - need to make it save with use of watchable
   def registerWidget(widget : WidgetDescriptor, context: BundleContext) = registredWidgets.synchronized {
     val httpService = context findService withInterface[HttpService]
 

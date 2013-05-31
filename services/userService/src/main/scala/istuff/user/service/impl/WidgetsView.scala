@@ -30,7 +30,7 @@ class WidgetsView (context:BundleContext, userWidgetColl : DBCollection) extends
 
     req.getParameterNames.asScala.foreach(s => items += s.toString)
 
-    var widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
+    val widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
     while(widgetCursor.hasNext){
       val entry = widgetCursor.next
       if(!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
