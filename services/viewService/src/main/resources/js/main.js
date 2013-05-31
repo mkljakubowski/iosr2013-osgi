@@ -1,12 +1,4 @@
-//$(function() {
-//    $("#resizable").resizable();
-//
-//    $("#resizable").resizable({
-//        resize: function(event, ui) {
-//            $("#myfr").css({ "height": ui.size.height,"width":ui.size.width});
-//        }
-//    });
-//});
+
 
 function logout() {
     $.post('/login', function (data) {
@@ -14,6 +6,11 @@ function logout() {
     });
 }
 
+function setData(name,version,height,width,xposition,yposition){
+    console.log(name+" "+version+" : "+width+" "+height+" "+xposition+" "+yposition)
+    //TODO set the position and size of each widget to the databse - main panel is called main
+    // send it to the server
+}
 
 var isDisabled = true
 var first = true
@@ -26,11 +23,22 @@ function changeResize() {
         $(".edit_button").text("Edit widgets")
         $('div.ui-resizable-handle').hide();
         isDisabled = true
+
+        collection=$(".resizable")
+        for(i=0;i<collection.length;i++){
+            var h=$(collection[i]).height()
+            var w=$(collection[i]).width()
+            var nam=collection[i].getAttribute("name")
+            var ver=collection[i].getAttribute("version")
+            var p=$(collection[i]).position()
+            setData(nam,ver,h,w, p.left, p.top)
+        }
     }
     else {                      //make enabled
         if (first) {
             $(".resizable").resizable();
             $(".resizable").draggable();
+
             first=false
         }
         else {
@@ -39,6 +47,10 @@ function changeResize() {
             $('div.ui-resizable-handle').show()
         }
         $(".edit_button").text("Stop editing")
+
+
+
         isDisabled = false
     }
 }
+

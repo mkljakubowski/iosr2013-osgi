@@ -22,20 +22,24 @@
     </script>
 </head>
 <body>
-<div class="ui-widget-content resizable main">
+<div class="ui-widget-content resizable main" name="main" version="1">
         Welcome $user!  Your options are:  </br>
         <button onclick="logout()">Logout</button>
-        <!--<span onclick="changeResize()">Is editable</span><br>-->
         <a href="/widgets"><button>Choose widgets</button></a>
     <button class="edit_button" onclick="changeResize()">Edit widgets</button>    <br>
 </div>
 
 #foreach($widget in $widgets)
 #foreach($address in $widget.addresses())
-<div class="ui-widget-content resizable normal">
-    <div id="$widget.name()">
+
+<div class="ui-widget-content resizable normal" name="$widget.name()" version="$widget.version()">
+    <div id="$widget.name()" >
     </div>
     <script type="text/javascript">
+        //TODO set sizes and position for each object :
+        //$('#$widget.name()').height(   here    )
+        //$('#$widget.name()').width(   here    )
+        //$('#$widget.name()').offset({ top: y, left: x})
         $('#$widget.name()').load("/servlets/$widget.name()/$widget.version()/$address");
     </script>
 </div>
