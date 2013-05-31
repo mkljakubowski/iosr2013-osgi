@@ -10,29 +10,37 @@
 
     <script>
 
-        $(function() {
-            $( "div[name='resizable']" ).resizable();
-            $( "div[name='resizable']" ).draggable();
+        $(function () {
+
+            $(".normal").height(400)
+            $(".normal").width(400)
+
+            $(".main").height(100)
+            $(".main").width(200)
         });
 
     </script>
 </head>
 <body>
-Welcome $user! <span onclick="logout()">Logout</span><br>
-
-<span><a href="/widgets">Choose widgets</a></span><br>
+<div class="ui-widget-content resizable main">
+        Welcome $user!  Your options are:  </br>
+        <button onclick="logout()">Logout</button>
+        <!--<span onclick="changeResize()">Is editable</span><br>-->
+        <a href="/widgets"><button>Choose widgets</button></a>
+    <button class="edit_button" onclick="changeResize()">Edit widgets</button>    <br>
+</div>
 
 #foreach($widget in $widgets)
-    #foreach($address in $widget.addresses())
-        <div name="resizable"   class="ui-widget-content">
-            <div id="$widget.name()">
-            </div>
-            <script type="text/javascript">
-                $('#$widget.name()').load("/servlets/$widget.name()/$widget.version()/$address");
-            </script>
-        </div>
+#foreach($address in $widget.addresses())
+<div class="ui-widget-content resizable normal">
+    <div id="$widget.name()">
+    </div>
+    <script type="text/javascript">
+        $('#$widget.name()').load("/servlets/$widget.name()/$widget.version()/$address");
+    </script>
+</div>
 
-    #end
+#end
 #end
 
 </body>
