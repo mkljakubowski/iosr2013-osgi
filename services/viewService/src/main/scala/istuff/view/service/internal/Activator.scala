@@ -2,60 +2,57 @@ package istuff.view.service.internal
 
 import org.osgi.framework._
 import com.weiglewilczek.scalamodules._
-import istuff.view.service.impl.{MainPageView, IndexViewResource}
-import istuff.widget.service.api.WidgetService
+import istuff.view.service.impl.MainPageView
 import org.osgi.service.http.HttpService
 
-import org.amdatu.template.processor.{TemplateProcessor, TemplateContext, TemplateEngine}
-import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
-import java.io.File
 import istuff.api.util.Loggable
 import istuff.database.service.api.Database
 import com.mongodb.DBCollection
 
 class Activator extends BundleActivator with Loggable {
-  var serviceRegistration: ServiceRegistration = _
-  var httpService : ServiceFinder[HttpService] = null
-  var dbService : ServiceFinder[Database] = null
 
   def start(context: BundleContext) {
 
-    dbService = context findService withInterface[Database]
 
-    val userWidgetColl:DBCollection = dbService andApply { _.getDB() } match {
-      case Some(db) => db.getCollection("istuff.users.widgets")
-      case _ => logger error("No DB"); null
+    context watchServices withInterface[Database]  andHandle {
+      case AddingService(dbS, _) => {
+        val dbService = dbS
+        val db=dbService.getDB()
+        val userWidgetColl=db.getCollection("istuff.users.widgets")
+
+        registerResources(userWidgetColl,context)
+      }
     }
 
-    httpService = context findService withInterface[HttpService]
-    httpService andApply { _.registerServlet("/",new MainPageView(context, userWidgetColl),null,null) } match {
-      case None => logger error("MainPage failed to register")
-      case _ => logger info("MainPage registered")
-    }
 
-    httpService andApply { _.registerResources("/res", "/", null) } match {
-      case None => logger error("MainPage res failed to register")
-      case _ => logger info("MainPage res registered")
-    }
-
-    httpService andApply { _.registerResources("/res/js", "/js", null) } match {
-      case None => logger error("MainPage res/js failed to register")
-      case _ => logger info("MainPage res/js registered")
-    }
-
-    httpService andApply { _.registerResources("/res/css/images", "/css/ui-lightness/images", null) } match {
-      case None => logger error("MainPage res/css/images failed to register")
-      case _ => logger info("MainPage res/css/images registered")
-    }
-
-    httpService andApply { _.registerResources("/res/css", "/css/ui-lightness", null) } match {
-      case None => logger error("MainPage res/css failed to register")
-      case _ => logger info("MainPage res/css registered")
-    }
 
   }
 
+  def registerResources(userWidgetColl :DBCollection,context: BundleContext)    {
+    context watchServices withInterface[HttpService]  andHandle {
+      case AddingService(hsS, _) => {
+
+        val httpService = hsS
+
+        httpService registerServlet("/",new MainPageView(context, userWidgetColl),null,null)
+        logger info("MainPageView registered")
+
+        httpService registerResources("/res", "/", null)
+        logger info("MainPage res/ resources registered")
+
+        httpService registerResources("/res/js", "/js", null)
+        logger info("MainPage res/js javascript resources registered")
+
+        httpService registerResources("/res/css/images", "/css/ui-lightness/images", null)
+        logger info("MainPage res/css/images registered")
+
+        httpService registerResources("/res/css", "/css/ui-lightness", null)
+        logger info("MainPage res/css registered")
+      }
+    }
+  }
+
   def stop(context: BundleContext) {
-    httpService andUnget
+
   }
 }
