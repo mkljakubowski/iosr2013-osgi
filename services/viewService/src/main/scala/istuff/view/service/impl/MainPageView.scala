@@ -49,6 +49,11 @@ class MainPageView(context: BundleContext, userWidgetColl : DBCollection) extend
 
       var userWidgets = Set[WidgetDescriptor]()
 
+      tcontext.put("mainHeight", 100)
+      tcontext.put("mainWidth", 200)
+      tcontext.put("mainYPos", 5)
+      tcontext.put("mainXPos", 5)
+
       while(widgetPreferences.hasNext){
         var currentWidget = widgetPreferences.next
         for(widget <- widgets){
@@ -71,9 +76,14 @@ class MainPageView(context: BundleContext, userWidgetColl : DBCollection) extend
               case w : String => w.toInt
             }
 
-
             userWidgets += widget
-            logger info(currentWidget.toString)
+          }
+          else if(currentWidget.get("widget") == "main")
+          {
+            tcontext.put("mainHeight", currentWidget.get("height").toString.toInt)
+            tcontext.put("mainWidth", currentWidget.get("width").toString.toInt)
+            tcontext.put("mainYPos", currentWidget.get("ypos").toString.toInt)
+            tcontext.put("mainXPos", currentWidget.get("xpos").toString.toInt)
           }
         }
       }

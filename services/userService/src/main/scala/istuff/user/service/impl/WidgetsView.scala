@@ -33,9 +33,12 @@ class WidgetsView (context:BundleContext, userWidgetColl : DBCollection) extends
     val widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
     while(widgetCursor.hasNext){
       val entry = widgetCursor.next
-      if(!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
-        userWidgetColl.remove(entry)
-      doubles += entry.get(widgetCollName) + "|" + entry.get(versionCollName)
+      if(entry.get(widgetCollName) != "main")
+      {
+        if(!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
+          userWidgetColl.remove(entry)
+        doubles += entry.get(widgetCollName) + "|" + entry.get(versionCollName)
+      }
     }
     widgetCursor.close
 

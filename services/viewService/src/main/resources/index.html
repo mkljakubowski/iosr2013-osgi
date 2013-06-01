@@ -8,26 +8,20 @@
     <script type="text/javascript" src="res/js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="res/js/jquery-ui-1.10.3.custom.min.js"></script>
 
-    <script>
-
-        $(function () {
-
-            $(".normal").height(400)
-            $(".normal").width(400)
-
-            $(".main").height(100)
-            $(".main").width(200)
-        });
-
-    </script>
 </head>
 <body>
-<div class="ui-widget-content resizable main" name="main" version="1">
+<div class="ui-widget-content resizable" name="main" version="1">
         Welcome $user!  Your options are:  </br>
         <button onclick="logout()">Logout</button>
         <a href="/widgets"><button>Choose widgets</button></a>
     <button class="edit_button" onclick="changeResize()">Edit widgets</button>    <br>
 </div>
+
+<script type="text/javascript">
+    $( "div[name='main']" ).height($mainHeight);
+    $( "div[name='main']" ).width($mainWidth);
+    $( "div[name='main']" ).offset({ top: $mainYPos, left: $mainXPos})
+</script>
 
 #foreach($widget in $widgets)
 #foreach($address in $widget.addresses())
