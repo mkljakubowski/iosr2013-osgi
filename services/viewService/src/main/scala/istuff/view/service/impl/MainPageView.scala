@@ -50,10 +50,31 @@ class MainPageView(context: BundleContext, userWidgetColl : DBCollection) extend
       var userWidgets = Set[WidgetDescriptor]()
 
       while(widgetPreferences.hasNext){
-        val currentWidget = widgetPreferences.next
+        var currentWidget = widgetPreferences.next
         for(widget <- widgets){
           if(widget.name == currentWidget.get("widget") && widget.version.toString == currentWidget.get("version"))
+          {
+            widget.height = currentWidget.get("height") match {
+              case null => 400
+              case h : String => h.toInt
+            }
+            widget.width = currentWidget.get("width") match {
+              case null => 400
+              case w : String => w.toInt
+            }
+            widget.xpos = currentWidget.get("xpos") match {
+              case null => 100
+              case w : String => w.toInt
+            }
+            widget.ypos = currentWidget.get("ypos") match {
+              case null => 100
+              case w : String => w.toInt
+            }
+
+
             userWidgets += widget
+            logger info(currentWidget.toString)
+          }
         }
       }
 

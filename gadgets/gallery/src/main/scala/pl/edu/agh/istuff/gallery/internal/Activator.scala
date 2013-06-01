@@ -21,7 +21,7 @@ class Activator extends BundleActivator with Loggable {
 
     descriptor = new WidgetDescriptor(name,1,"tomek",
       Map((name, new GalleryServlet(name, 1))),
-      List("","images"))
+      List("","images"), 400, 400, 100, 100)
 
     context watchServices withInterface[TemplateEngine]  andHandle {
       case AddingService(te, _) => {

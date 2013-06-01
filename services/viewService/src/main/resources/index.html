@@ -32,14 +32,13 @@
 #foreach($widget in $widgets)
 #foreach($address in $widget.addresses())
 
-<div class="ui-widget-content resizable normal" name="$widget.name()" version="$widget.version()">
+<div class="ui-widget-content resizable" name="$widget.name()" version="$widget.version()">
     <div id="$widget.name()" >
     </div>
     <script type="text/javascript">
-        //TODO set sizes and position for each object :
-        //$('#$widget.name()').height(   here    )
-        //$('#$widget.name()').width(   here    )
-        //$('#$widget.name()').offset({ top: y, left: x})
+        $( "div[name='$widget.name()']" ).height($widget.height());
+        $( "div[name='$widget.name()']" ).width($widget.width());
+        $( "div[name='$widget.name()']" ).offset({ top: $widget.ypos(), left: $widget.xpos()})
         $('#$widget.name()').load("/servlets/$widget.name()/$widget.version()/$address");
     </script>
 </div>

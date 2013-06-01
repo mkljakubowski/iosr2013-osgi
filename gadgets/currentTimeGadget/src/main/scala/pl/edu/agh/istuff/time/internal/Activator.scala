@@ -21,7 +21,7 @@ class Activator extends BundleActivator with Loggable {
 
     descriptor = new WidgetDescriptor(name,1,"mikolaj",
       Map(("time", new CurrentTimeServlet(name,1))),
-      List(""))
+      List(""), 400, 400, 100, 100)
 
     context watchServices withInterface[TemplateEngine]  andHandle {
       case AddingService(te, _) => {

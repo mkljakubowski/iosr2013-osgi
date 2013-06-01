@@ -5,7 +5,7 @@ import org.osgi.framework._
 import com.weiglewilczek.scalamodules._
 import org.osgi.service.http.HttpService
 import istuff.database.service.api.Database
-import istuff.user.service.impl.{WidgetsView, RegisterView, LoginView}
+import istuff.user.service.impl.{CustomizerView, WidgetsView, RegisterView, LoginView}
 import com.mongodb.DBCollection
 
 class Activator extends BundleActivator with Loggable {
@@ -36,7 +36,8 @@ class Activator extends BundleActivator with Loggable {
         logger info ("Register page registered")
         httpService registerServlet("/widgets", new WidgetsView(context, userWidgetColl), null, null)
         logger info ("widgets registered")
-
+        httpService registerServlet("/customizer", new CustomizerView(context, userWidgetColl), null, null)
+        logger info ("customizer registered")
       }
     }
   }

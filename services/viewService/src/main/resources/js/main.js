@@ -10,6 +10,7 @@ function setData(name,version,height,width,xposition,yposition){
     console.log(name+" "+version+" : "+width+" "+height+" "+xposition+" "+yposition)
     //TODO set the position and size of each widget to the databse - main panel is called main
     // send it to the server
+    $.post('/customizer', { name : name, version : version, height: height, width : width, xposition : xposition, yposition : yposition})
 }
 
 var isDisabled = true
