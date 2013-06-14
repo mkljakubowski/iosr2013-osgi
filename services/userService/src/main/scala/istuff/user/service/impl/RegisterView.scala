@@ -11,10 +11,18 @@ class RegisterView (context:BundleContext, userColl : DBCollection) extends Http
 
   override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
     if(req.getParameter("user") != null && req.getParameter("pwd1") == req.getParameter("pwd2") && req.getParameter("pwd1") != null){
-      val doc = new BasicDBObject("name", req.getParameter("user")).append("pwd", req.getParameter("pwd2"))
-      userColl.insert(doc)
-      resp.setContentType("text/html;charset=UTF-8")
-      resp.sendRedirect("/login")
+      val doc = new BasicDBObject("name", req.getParameter("user"))
+      val res = userColl.find(doc)
+      if (res.count()==0){
+        val doc = new BasicDBObject("name", req.getParameter("user")).append("pwd", req.getParameter("pwd1"))
+        userColl.insert(doc)
+        resp.setHeader("redirect_to", "/login")
+      }
+      else{
+        resp.setHeader("redirect_to", "/register")
+      }
+
+
     }
   }
 

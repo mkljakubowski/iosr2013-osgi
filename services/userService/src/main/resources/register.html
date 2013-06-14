@@ -5,29 +5,33 @@
 </head>
 <body>
 <script src="login_res/sha256.js"></script>
-<!--<script>-->
-    <!--function myOnSubmit(aForm) {-->
+<script type="text/javascript" src="res/js/jquery-1.9.1.js"></script>
+<script>
+    function register() {
 
-        <!--//Getting the two input objects-->
-        <!--var inputUsername = aForm['user'];-->
-        <!--var inputPassword1 = aForm['pwd1'];-->
-        <!--var inputPassword2 = aForm['pwd2'];-->
+        var aForm=register_form
+        //Getting the two input objects
+        var username= aForm['user'].value;
+        var inputPassword1 = aForm['pwd1'].value;
+        var inputPassword2 = aForm['pwd2'].value;
 
-        <!--//Hashing the values before submitting-->
-        <!--inputUsername.value  = CryptoJS.SHA256(inputUsername.value).toString(CryptoJS.enc.Hex);-->
-        <!--inputPassword1.value = CryptoJS.SHA256(inputPassword1.value).toString(CryptoJS.enc.Hex);-->
-        <!--inputPassword2.value = CryptoJS.SHA256(inputPassword2.value).toString(CryptoJS.enc.Hex);-->
-        <!--//Submitting-->
-        <!--return true;-->
-    <!--}-->
-<!--</script>-->
+        //Hashing the values before submitting
+        var hashed_pwd1 = CryptoJS.SHA256(inputPassword1).toString(CryptoJS.enc.Hex);
+        var hashed_pwd2 = CryptoJS.SHA256(inputPassword2).toString(CryptoJS.enc.Hex);
 
-<form method="POST" action="/register" onsubmit="return myOnSubmit(this);" >
+        //Submitting
+        $.post("/register", { user: username, pwd1: hashed_pwd1, pwd2 : hashed_pwd2 },
+            function(data, textStatus, jqXHR) {
+                window.location.replace(jqXHR.getResponseHeader("redirect_to"))
+        });
+    }
+</script>
+
+<form method="POST" action="/register"  name="register_form">
     Username: <input type="text" name="user"><br>
     Password: <input type="password" name="pwd1"><br>
     Confirm: <input type="password" name="pwd2"><br>
-    <input type="submit" value="Register" onclick="pwd1.value=CryptoJS.SHA256(pwd1.value).toString(CryptoJS.enc.Hex);pwd2.value=CryptoJS.SHA256(pwd2.value).toString(CryptoJS.enc.Hex);">
 </form>
-
+<button onclick="register()">Register</button>
 </body>
 </html>

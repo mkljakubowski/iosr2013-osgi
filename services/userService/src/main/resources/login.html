@@ -5,12 +5,36 @@
 </head>
 <body>
 <script src="login_res/sha256.js"></script>
-<form method="POST" action="/login">
+<script type="text/javascript" src="res/js/jquery-1.9.1.js"></script>
+
+<script>
+    function login() {
+
+        var aForm=login_form
+        //Getting the two input objects
+        var username= aForm['user'].value;
+        var inputPassword = aForm['pwd'].value;
+
+        //Hashing the values before submitting
+        var hashed_pwd = CryptoJS.SHA256(inputPassword).toString(CryptoJS.enc.Hex);
+
+        //Submitting
+        var jqxhr = $.post("/login", { user: username, pwd: hashed_pwd } ,function(data, textStatus, jqXHR) {
+
+            window.location.replace(jqXHR.getResponseHeader("redirect_to"))
+
+        })
+
+    }
+</script>
+
+<form method="POST" action="/login" name="login_form">
     Username: <input type="text" name="user"><br>
     Password: <input type="password" name="pwd"><br>
-    <input type="submit" value="Login" onclick="pwd.value=CryptoJS.SHA256(pwd.value).toString(CryptoJS.enc.Hex);">
+
 </form>
-<a href="/register">Register</a>
+<button onclick="login()">Login</button>
+<a href="/register"><button>Register</button></a>
 
 </body>
 </html>
