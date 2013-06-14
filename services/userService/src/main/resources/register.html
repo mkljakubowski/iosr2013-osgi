@@ -4,11 +4,29 @@
     <title></title>
 </head>
 <body>
-<form method="POST" action="/register">
+<script src="login_res/sha256.js"></script>
+<!--<script>-->
+    <!--function myOnSubmit(aForm) {-->
+
+        <!--//Getting the two input objects-->
+        <!--var inputUsername = aForm['user'];-->
+        <!--var inputPassword1 = aForm['pwd1'];-->
+        <!--var inputPassword2 = aForm['pwd2'];-->
+
+        <!--//Hashing the values before submitting-->
+        <!--inputUsername.value  = CryptoJS.SHA256(inputUsername.value).toString(CryptoJS.enc.Hex);-->
+        <!--inputPassword1.value = CryptoJS.SHA256(inputPassword1.value).toString(CryptoJS.enc.Hex);-->
+        <!--inputPassword2.value = CryptoJS.SHA256(inputPassword2.value).toString(CryptoJS.enc.Hex);-->
+        <!--//Submitting-->
+        <!--return true;-->
+    <!--}-->
+<!--</script>-->
+
+<form method="POST" action="/register" onsubmit="return myOnSubmit(this);" >
     Username: <input type="text" name="user"><br>
     Password: <input type="password" name="pwd1"><br>
     Confirm: <input type="password" name="pwd2"><br>
-    <input type="submit" value="Register">
+    <input type="submit" value="Register" onclick="pwd1.value=CryptoJS.SHA256(pwd1.value).toString(CryptoJS.enc.Hex);pwd2.value=CryptoJS.SHA256(pwd2.value).toString(CryptoJS.enc.Hex);">
 </form>
 
 </body>

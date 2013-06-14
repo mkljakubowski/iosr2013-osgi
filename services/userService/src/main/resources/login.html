@@ -4,10 +4,11 @@
     <title></title>
 </head>
 <body>
+<script src="login_res/sha256.js"></script>
 <form method="POST" action="/login">
     Username: <input type="text" name="user"><br>
     Password: <input type="password" name="pwd"><br>
-    <input type="submit" value="Login">
+    <input type="submit" value="Login" onclick="pwd.value=CryptoJS.SHA256(pwd.value).toString(CryptoJS.enc.Hex);">
 </form>
 <a href="/register">Register</a>
 

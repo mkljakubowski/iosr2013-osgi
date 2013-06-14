@@ -38,6 +38,8 @@ class Activator extends BundleActivator with Loggable {
         logger info ("widgets registered")
         httpService registerServlet("/customizer", new CustomizerView(context, userWidgetColl), null, null)
         logger info ("customizer registered")
+        httpService registerResources("/login_res", "/", null)
+        logger info("MainPage login_res resources registered")
       }
     }
   }
