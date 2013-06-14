@@ -21,13 +21,13 @@ class LoginView (context:BundleContext, userColl : DBCollection) extends HttpSer
         resp.setHeader("redirect_to", "/")
       }
       else{
-        val session = req getSession(true)
-        session setAttribute("login","anonymous")
+        val session = req getSession(false)
+        if (session != null ) session invalidate()
         resp.setHeader("redirect_to", "/login")
     }
     } else {
-      val session = req getSession(true)
-      session setAttribute("login","anonymous")
+      val session = req getSession(false)
+      if (session != null ) session invalidate()
       resp.setHeader("redirect_to", "/login")
     }
   }

@@ -12,15 +12,20 @@ import com.mongodb.{BasicDBObject, DBCollection}
 import istuff.database.service.api.Database
 import com.weiglewilczek.scalamodules
 
-class MainPageView(context: BundleContext, userWidgetColl : DBCollection) extends HttpServlet with Loggable {
+class MainPageView(context: BundleContext, userWidgetColl: DBCollection) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
-    val session = req getSession(true)
-    if (session.getAttribute("login")!="authenticated") {
+    val session = req getSession (false)
+
+    if (session == null || session.getAttribute("login") != "authenticated") {
+
       resp.setContentType("text/html;charset=UTF-8")
       resp.sendRedirect("/login")
+
     } else {
-      val user = session getAttribute("user")
+
+      val user = session getAttribute ("user")
+
       // Retrieve a Velocity implementation of the engine
       val eng = context findService classOf[TemplateEngine]
 
@@ -55,32 +60,30 @@ class MainPageView(context: BundleContext, userWidgetColl : DBCollection) extend
       tcontext.put("mainYPos", 5)
       tcontext.put("mainXPos", 5)
 
-      while(widgetPreferences.hasNext){
+      while (widgetPreferences.hasNext) {
         var currentWidget = widgetPreferences.next
-        for(widget <- widgets){
-          if(widget.name == currentWidget.get("widget") && widget.version.toString == currentWidget.get("version"))
-          {
+        for (widget <- widgets) {
+          if (widget.name == currentWidget.get("widget") && widget.version.toString == currentWidget.get("version")) {
             widget.height = currentWidget.get("height") match {
               case null => 400
-              case h : String => h.toInt
+              case h: String => h.toInt
             }
             widget.width = currentWidget.get("width") match {
               case null => 400
-              case w : String => w.toInt
+              case w: String => w.toInt
             }
             widget.xpos = currentWidget.get("xpos") match {
               case null => 100
-              case w : String => w.toInt
+              case w: String => w.toInt
             }
             widget.ypos = currentWidget.get("ypos") match {
               case null => 100
-              case w : String => w.toInt
+              case w: String => w.toInt
             }
 
             userWidgets += widget
           }
-          else if(currentWidget.get("widget") == "main")
-          {
+          else if (currentWidget.get("widget") == "main") {
             tcontext.put("mainHeight", currentWidget.get("height").toString.toInt)
             tcontext.put("mainWidth", currentWidget.get("width").toString.toInt)
             tcontext.put("mainYPos", currentWidget.get("ypos").toString.toInt)

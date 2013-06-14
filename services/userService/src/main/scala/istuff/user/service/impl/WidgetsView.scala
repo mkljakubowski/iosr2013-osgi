@@ -24,8 +24,9 @@ class WidgetsView (context:BundleContext, userWidgetColl : DBCollection) extends
   val versionCollName = "version"
 
   override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
-    val session = req getSession(true)
-    val user = session getAttribute("user")
+    val session = req getSession(false)
+    var user  = ""
+    if (session!=null) user =  session getAttribute("user") toString ()
     var items = Set[String]()
     var doubles = Set[String]()
 
@@ -79,8 +80,9 @@ class WidgetsView (context:BundleContext, userWidgetColl : DBCollection) extends
     } getOrElse (List.empty[WidgetDescriptor])
     tcontext.put("widgets", widgets.toArray)
 
-    val session = req getSession(true)
-    val user = session getAttribute("user")
+    val session = req getSession(false)
+    var user  = ""
+    if (session!=null) user =  session getAttribute("user") toString ()
     tcontext.put("user", user)
 
     resp.setContentType("text/html;charset=UTF-8")
