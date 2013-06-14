@@ -23,7 +23,8 @@ class CustomizerView (context:BundleContext, userWidgetColl : DBCollection) exte
   val yposCollName = "ypos"
 
   override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
-    val user = req.getCookies.toList.filter(c => c.getName == "user").head.getValue
+    val session = req getSession(true)
+    val user = session getAttribute("user")
     val name = req.getParameter("name")
     val version = req.getParameter("version")
     val height = req.getParameter("height")

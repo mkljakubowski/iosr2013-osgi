@@ -15,11 +15,12 @@ import com.weiglewilczek.scalamodules
 class MainPageView(context: BundleContext, userWidgetColl : DBCollection) extends HttpServlet with Loggable {
 
   override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
-    if (req.getCookies == null || req.getCookies != null && req.getCookies.toList.filter(c => c != null && c.getName == "auth" && c.getValue == "true").isEmpty) {
+    val session = req getSession(true)
+    if (session.getAttribute("login")!="authenticated") {
       resp.setContentType("text/html;charset=UTF-8")
       resp.sendRedirect("/login")
     } else {
-      val user = req.getCookies.toList.filter(c => c.getName == "user").head.getValue
+      val user = session getAttribute("user")
       // Retrieve a Velocity implementation of the engine
       val eng = context findService classOf[TemplateEngine]
 

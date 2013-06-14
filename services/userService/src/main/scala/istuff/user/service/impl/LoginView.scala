@@ -15,18 +15,20 @@ class LoginView (context:BundleContext, userColl : DBCollection) extends HttpSer
       val query = new BasicDBObject("name", req.getParameter("user")).append("pwd",req.getParameter("pwd"))
       val res = userColl.find(query)
       if(res.hasNext){
-        resp.addCookie(new Cookie("user", req.getParameter("user")))
-        resp.addCookie(new Cookie("auth", "true"))
-        resp.setContentType("text/html;charset=UTF-8")
-        resp.sendRedirect("/")
+        val session = req getSession(true)
+        session setAttribute("login","authenticated")
+        session setAttribute("user",req.getParameter("user"))
+        resp.setHeader("redirect_to", "/")
       }
-      resp.addCookie(new Cookie("auth", "false"))
-      resp.setContentType("text/html;charset=UTF-8")
-      resp.sendError(10,"Wrong password")
+      else{
+        val session = req getSession(true)
+        session setAttribute("login","anonymous")
+        resp.setHeader("redirect_to", "/login")
+    }
     } else {
-      resp.addCookie(new Cookie("auth", "false"))
-      resp.setContentType("text/html;charset=UTF-8")
-      resp.sendRedirect("/")
+      val session = req getSession(true)
+      session setAttribute("login","anonymous")
+      resp.setHeader("redirect_to", "/login")
     }
   }
 

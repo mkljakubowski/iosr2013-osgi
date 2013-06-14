@@ -24,7 +24,8 @@ class WidgetsView (context:BundleContext, userWidgetColl : DBCollection) extends
   val versionCollName = "version"
 
   override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
-    val user = req.getCookies.toList.filter(c => c.getName == "user").head.getValue
+    val session = req getSession(true)
+    val user = session getAttribute("user")
     var items = Set[String]()
     var doubles = Set[String]()
 
@@ -78,7 +79,8 @@ class WidgetsView (context:BundleContext, userWidgetColl : DBCollection) extends
     } getOrElse (List.empty[WidgetDescriptor])
     tcontext.put("widgets", widgets.toArray)
 
-    val user = req.getCookies.toList.filter(c => c.getName == "user").head.getValue
+    val session = req getSession(true)
+    val user = session getAttribute("user")
     tcontext.put("user", user)
 
     resp.setContentType("text/html;charset=UTF-8")

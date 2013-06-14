@@ -34,6 +34,7 @@ class Activator extends BundleActivator with Loggable {
 
         val httpService = hsS
 
+
         httpService registerServlet("/",new MainPageView(context, userWidgetColl),null,null)
         logger info("MainPageView registered")
 
