@@ -2,13 +2,25 @@ package istuff.user.service.impl
 
 import org.osgi.framework.BundleContext
 import com.weiglewilczek.scalamodules._
-import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
+import javax.servlet.http.{Cookie, HttpServletResponse, HttpServletRequest, HttpServlet}
 import istuff.api.util.Loggable
 import org.amdatu.template.processor.{TemplateProcessor, TemplateContext, TemplateEngine}
 import istuff.widget.service.api.WidgetService
 import istuff.api.models.widget.WidgetDescriptor
 import collection.JavaConverters._
 import com.mongodb.{BasicDBObject, DBCollection}
+import java.security.SecureRandom;
+import java.math.BigInteger;
+
+class SessionIdentifierGenerator {
+
+  var random: SecureRandom = new SecureRandom();
+
+  def nextSessionId(): String = {
+    return new BigInteger(130, random).toString(32);
+  }
+
+}
 
 /**
  * User: Piotr Borowiec
@@ -20,6 +32,7 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
   val userCollName = "user"
   val widgetCollName = "widget"
   val versionCollName = "version"
+  val idGenerator: SessionIdentifierGenerator = new SessionIdentifierGenerator()
 
   override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
 
@@ -29,38 +42,46 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
       response.setContentType("text/html;charset=UTF-8")
       response.sendRedirect("/login")
 
-    } else {
-      val user = session getAttribute ("user") toString()
+    }
+    else {
+      val token_cookie = request.getCookies.toList.filter(c => c.getName == "widget_token").head.getValue
+      val token_session = session getAttribute ("widget_token")
 
-      var items = Set[String]()
-      var doubles = Set[String]()
+      if (token_session!=null && token_cookie.equals(token_session)) {
 
-      request.getParameterNames.asScala.foreach(s => items += s.toString)
+        val user = session getAttribute ("user") toString()
 
-      val widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
+        var items = Set[String]()
+        var doubles = Set[String]()
 
-      while (widgetCursor.hasNext) {
+        request.getParameterNames.asScala.foreach(s => items += s.toString)
 
-        val entry = widgetCursor.next
+        val widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
 
-        if (entry.get(widgetCollName) != "main") {
-          if (!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
-            userWidgetColl.remove(entry)
-          doubles += entry.get(widgetCollName) + "|" + entry.get(versionCollName)
+        while (widgetCursor.hasNext) {
+
+          val entry = widgetCursor.next
+
+          if (entry.get(widgetCollName) != "main") {
+            if (!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
+              userWidgetColl.remove(entry)
+            doubles += entry.get(widgetCollName) + "|" + entry.get(versionCollName)
+          }
         }
-      }
-      widgetCursor.close
+        widgetCursor.close
 
-      for (item <- items) {
-        if (!doubles.contains(item)) {
-          userWidgetColl.insert(new BasicDBObject(userCollName, user)
-            .append(widgetCollName, item.split('|')(0))
-            .append(versionCollName, item.split('|')(1)))
+        for (item <- items) {
+          if (!doubles.contains(item)) {
+            userWidgetColl.insert(new BasicDBObject(userCollName, user)
+              .append(widgetCollName, item.split('|')(0))
+              .append(versionCollName, item.split('|')(1)))
+          }
         }
+        session.removeAttribute("widget_token")
       }
-
       response.setContentType("text/html;charset=UTF-8")
       response.sendRedirect("/")
+
     }
   }
 
@@ -101,7 +122,9 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
 
 
       templateContext.put("user", user)
-
+      val tmp_id = idGenerator.nextSessionId()
+      session setAttribute("widget_token", tmp_id)
+      response.addCookie(new Cookie("widget_token", tmp_id))
       response.setContentType("text/html;charset=UTF-8")
       response.setContentType("text/html")
 
