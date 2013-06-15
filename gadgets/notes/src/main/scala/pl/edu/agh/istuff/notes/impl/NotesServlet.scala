@@ -4,11 +4,9 @@ import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
 import istuff.api.util.Loggable
 
 /**
- * Created with IntelliJ IDEA.
- * User: bursant
+ * User: Piotr Borowiec
  * Date: 5/11/13
  * Time: 1:13 PM
- * To change this template use File | Settings | File Templates.
  */
 class NotesServlet (name : String, version: Int) extends HttpServlet with Loggable {
 
