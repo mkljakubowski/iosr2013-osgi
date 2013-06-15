@@ -10,7 +10,7 @@ import istuff.api.util.Loggable
  * Date: 6/1/13
  * Time: 12:02 PM
  */
-class CustomizerView (context:BundleContext, userWidgetColl : DBCollection) extends HttpServlet with Loggable {
+class CustomizerView(context: BundleContext, userWidgetColl: DBCollection) extends HttpServlet with Loggable {
 
   val userCollName = "user"
   val widgetCollName = "widget"
@@ -20,35 +20,40 @@ class CustomizerView (context:BundleContext, userWidgetColl : DBCollection) exte
   val xposCollName = "xpos"
   val yposCollName = "ypos"
 
-  override def doPost(request : HttpServletRequest , response : HttpServletResponse ) {
+  override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
 
-    val session = request getSession(false)
-    var user  = ""
-    if (session!=null) user =  session getAttribute("user") toString ()
+    val session = request getSession (false)
+    if (session == null || session.getAttribute("login") != "authenticated") {
 
-    val name = request.getParameter("name")
-    val version = request.getParameter("version")
-    val height = request.getParameter("height")
-    val width = request.getParameter("width")
-    val xpos = request.getParameter("xposition")
-    val ypos = request.getParameter("yposition")
+      response.setContentType("text/html;charset=UTF-8")
+      response.sendRedirect("/login")
 
-    userWidgetColl.remove(
-      new BasicDBObject(userCollName, user)
-      .append(widgetCollName, name)
-      .append(versionCollName, version)
-    )
+    } else {
+      val user = session getAttribute ("user") toString()
 
-    userWidgetColl.insert(
-      new BasicDBObject(userCollName, user)
-      .append(widgetCollName, name)
-      .append(versionCollName, version)
-      .append(heightCollName, height)
-      .append(widthCollName, width)
-      .append(xposCollName, xpos)
-      .append(yposCollName, ypos)
-    )
+      val name = request.getParameter("name")
+      val version = request.getParameter("version")
+      val height = request.getParameter("height")
+      val width = request.getParameter("width")
+      val xpos = request.getParameter("xposition")
+      val ypos = request.getParameter("yposition")
 
+      userWidgetColl.remove(
+        new BasicDBObject(userCollName, user)
+          .append(widgetCollName, name)
+          .append(versionCollName, version)
+      )
+
+      userWidgetColl.insert(
+        new BasicDBObject(userCollName, user)
+          .append(widgetCollName, name)
+          .append(versionCollName, version)
+          .append(heightCollName, height)
+          .append(widthCollName, width)
+          .append(xposCollName, xpos)
+          .append(yposCollName, ypos)
+      )
+    }
   }
 
 }

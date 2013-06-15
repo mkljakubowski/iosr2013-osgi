@@ -24,78 +24,90 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
   override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
 
     val session = request getSession (false)
-    var user = ""
-    if (session != null) user = session getAttribute ("user") toString()
+    if (session == null || session.getAttribute("login") != "authenticated") {
 
-    var items = Set[String]()
-    var doubles = Set[String]()
+      response.setContentType("text/html;charset=UTF-8")
+      response.sendRedirect("/login")
 
-    request.getParameterNames.asScala.foreach(s => items += s.toString)
+    } else {
+      val user = session getAttribute ("user") toString()
 
-    val widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
+      var items = Set[String]()
+      var doubles = Set[String]()
 
-    while (widgetCursor.hasNext) {
+      request.getParameterNames.asScala.foreach(s => items += s.toString)
 
-      val entry = widgetCursor.next
+      val widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
 
-      if (entry.get(widgetCollName) != "main") {
-        if (!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
-          userWidgetColl.remove(entry)
-        doubles += entry.get(widgetCollName) + "|" + entry.get(versionCollName)
+      while (widgetCursor.hasNext) {
+
+        val entry = widgetCursor.next
+
+        if (entry.get(widgetCollName) != "main") {
+          if (!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
+            userWidgetColl.remove(entry)
+          doubles += entry.get(widgetCollName) + "|" + entry.get(versionCollName)
+        }
       }
-    }
-    widgetCursor.close
+      widgetCursor.close
 
-    for (item <- items) {
-      if (!doubles.contains(item)) {
-        userWidgetColl.insert(new BasicDBObject(userCollName, user)
-          .append(widgetCollName, item.split('|')(0))
-          .append(versionCollName, item.split('|')(1)))
+      for (item <- items) {
+        if (!doubles.contains(item)) {
+          userWidgetColl.insert(new BasicDBObject(userCollName, user)
+            .append(widgetCollName, item.split('|')(0))
+            .append(versionCollName, item.split('|')(1)))
+        }
       }
-    }
 
-    response.setContentType("text/html;charset=UTF-8")
-    response.sendRedirect("/")
+      response.setContentType("text/html;charset=UTF-8")
+      response.sendRedirect("/")
+    }
   }
 
   override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
-    val templateEngine = context findService classOf[TemplateEngine]
-
-    // Create & fill the context
-    var templateContext: TemplateContext = null
-    templateEngine andApply {
-      _.createContext()
-    } match {
-      case None => logger error ("No key with that name!")
-      case Some(x) => templateContext = x
-    }
-
-    var processor: TemplateProcessor = null
-
-    val url = context.getBundle().getResource("widgets.html")
-    templateEngine andApply {
-      _.createProcessor(url)
-    } match {
-      case None => logger error ("No key with that name!")
-      case Some(x) => processor = x
-    }
-
-    val widgets = context findService withInterface[WidgetService] andApply {
-      _.getAvailableWidgets()
-    } getOrElse (List.empty[WidgetDescriptor])
-    templateContext.put("widgets", widgets.toArray)
-
     val session = request getSession (false)
-    var user = ""
-    if (session != null) user = session getAttribute ("user") toString()
+    if (session == null || session.getAttribute("login") != "authenticated") {
 
-    templateContext.put("user", user)
+      response.setContentType("text/html;charset=UTF-8")
+      response.sendRedirect("/login")
 
-    response.setContentType("text/html;charset=UTF-8")
-    response.setContentType("text/html")
+    } else {
+      val user = session getAttribute ("user") toString()
+      val templateEngine = context findService classOf[TemplateEngine]
 
-    val out = response.getWriter()
-    processor.generateStream(templateContext, out)
+      // Create & fill the context
+      var templateContext: TemplateContext = null
+      templateEngine andApply {
+        _.createContext()
+      } match {
+        case None => logger error ("No key with that name!")
+        case Some(x) => templateContext = x
+      }
+
+      var processor: TemplateProcessor = null
+
+      val url = context.getBundle().getResource("widgets.html")
+      templateEngine andApply {
+        _.createProcessor(url)
+      } match {
+        case None => logger error ("No key with that name!")
+        case Some(x) => processor = x
+      }
+
+      val widgets = context findService withInterface[WidgetService] andApply {
+        _.getAvailableWidgets()
+      } getOrElse (List.empty[WidgetDescriptor])
+      templateContext.put("widgets", widgets.toArray)
+
+
+      templateContext.put("user", user)
+
+      response.setContentType("text/html;charset=UTF-8")
+      response.setContentType("text/html")
+
+      val out = response.getWriter()
+      processor.generateStream(templateContext, out)
+    }
   }
 
 }
