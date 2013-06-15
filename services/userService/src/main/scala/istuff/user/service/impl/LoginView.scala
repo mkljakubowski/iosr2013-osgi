@@ -10,6 +10,8 @@ import com.mongodb.{BasicDBObject, DBCollection}
 
 class LoginView(context: BundleContext, userColl: DBCollection) extends HttpServlet with Loggable {
 
+  var processor: TemplateProcessor = _
+
   override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
 
     if (request.getParameter("user") != null && request.getParameter("pwd") != null) {
@@ -51,8 +53,6 @@ class LoginView(context: BundleContext, userColl: DBCollection) extends HttpServ
       case None => logger error ("No key with that name!")
       case Some(x) => templateContext = x
     }
-
-    var processor: TemplateProcessor = null
 
     val url = context.getBundle().getResource("login.html")
     eng andApply {

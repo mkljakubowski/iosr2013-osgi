@@ -105,4 +105,40 @@ class MainPageViewTests extends FlatSpec with MockitoSugar{
     // Assert
     verify(userWidgetColl).find(any[BasicDBObject])
   }
+
+  it should "iterate over widget preferences and set them accordingly" in {
+    // Arrange
+    val name = "johnny"
+
+    val context = mock[BundleContext]
+    val userWidgetColl = mock[DBCollection]
+    val req = mock[HttpServletRequest]
+    val resp = mock[HttpServletResponse]
+    val session = mock[HttpSession]
+    val bundle = mock[Bundle]
+    val templateContext = mock[TemplateContext]
+    val url =  new URL("http", "8080", "index.html")
+    val cursor = mock[DBCursor]
+    val processor = mock[TemplateProcessor]
+    val dbObject= mock[BasicDBObject]
+
+    stub(req.getSession(any[Boolean])).toReturn(session)
+    stub(session.getAttribute("user")).toReturn(name)
+    stub(session.getAttribute("login")).toReturn("authenticated")
+    stub(context.getBundle()).toReturn(bundle)
+    stub(bundle.getResource("index.html")).toReturn(url)
+    stub(userWidgetColl.find(any[BasicDBObject])).toReturn(cursor)
+    stub(cursor.hasNext).toReturn(true).toReturn(false)
+    stub(cursor.next).toReturn(dbObject)
+
+    var view = new MainPageView(context, userWidgetColl)
+    view.templateContext = templateContext
+    view.processor = processor
+
+    // Act
+    view.doGet(req, resp)
+
+    // Assert
+    verify(userWidgetColl).find(any[BasicDBObject])
+  }
 }

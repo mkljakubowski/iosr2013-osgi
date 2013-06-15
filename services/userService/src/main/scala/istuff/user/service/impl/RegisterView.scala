@@ -9,6 +9,8 @@ import com.mongodb.{BasicDBObject, DBCollection}
 
 class RegisterView (context:BundleContext, userCollection : DBCollection) extends HttpServlet with Loggable {
 
+  var processor : TemplateProcessor = _
+
   override def doPost(request : HttpServletRequest , response : HttpServletResponse ) {
 
     if(request.getParameter("user") != null && request.getParameter("pwd1") == request.getParameter("pwd2") && request.getParameter("pwd1") != null){
@@ -38,8 +40,6 @@ class RegisterView (context:BundleContext, userCollection : DBCollection) extend
       case None => logger error("No key with that name!")
       case Some(x) =>   templateContext=x
     }
-
-    var processor : TemplateProcessor  = null
 
     val url = context.getBundle().getResource("register.html")
     templateEngine andApply { _.createProcessor(url)

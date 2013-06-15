@@ -33,6 +33,8 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
   val widgetCollName = "widget"
   val versionCollName = "version"
   val idGenerator: SessionIdentifierGenerator = new SessionIdentifierGenerator()
+  var processor: TemplateProcessor = _
+  var templateContext: TemplateContext = _
 
   override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
 
@@ -99,15 +101,12 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
       val templateEngine = context findService classOf[TemplateEngine]
 
       // Create & fill the context
-      var templateContext: TemplateContext = null
       templateEngine andApply {
         _.createContext()
       } match {
         case None => logger error ("No key with that name!")
         case Some(x) => templateContext = x
       }
-
-      var processor: TemplateProcessor = null
 
       val url = context.getBundle().getResource("widgets.html")
       templateEngine andApply {

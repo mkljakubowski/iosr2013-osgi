@@ -6,11 +6,13 @@ import com.mongodb.{DBCursor, BasicDBObject, DBCollection}
 import org.scalatest.junit.JUnitRunner
 import org.junit.runner.RunWith
 import org.scalatest.mock.MockitoSugar
-import org.osgi.framework.BundleContext
+import org.osgi.framework.{Bundle, BundleContext}
 import javax.servlet.http.{HttpSession, HttpServletResponse, HttpServletRequest}
 import org.mockito.Mockito._
 import org.mockito.Matchers._
 import matchers.IsCorrectUser
+import org.amdatu.template.processor.{TemplateContext, TemplateProcessor}
+import java.io.PrintWriter
 
 /**
  * Created with IntelliJ IDEA.
@@ -126,6 +128,27 @@ class LoginViewTests extends FlatSpec with MockitoSugar{
 
     // Assert
     verify(resp).setHeader("redirect_to", "/")
+  }
+
+  it should "generate stream for response writer" in {
+    // Arrange
+    val context = mock[BundleContext]
+    val userColl = mock[DBCollection]
+    val req = mock[HttpServletRequest]
+    val resp = mock[HttpServletResponse]
+    val processor = mock[TemplateProcessor]
+    val bundle = mock[Bundle]
+
+    stub(context.getBundle).toReturn(bundle)
+
+    val view = new LoginView(context, userColl)
+    view.processor = processor
+
+    // Act
+    view.doGet(req, resp)
+
+    // Assert
+    verify(processor).generateStream(any[TemplateContext], any[PrintWriter])
   }
 
 }

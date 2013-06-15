@@ -5,7 +5,7 @@ import com.mongodb.{DBCursor, DBCollection}
 import org.scalatest.junit.JUnitRunner
 import org.junit.runner.RunWith
 import org.scalatest.mock.MockitoSugar
-import org.osgi.framework.BundleContext
+import org.osgi.framework.{Bundle, BundleContext}
 import javax.servlet.http.{HttpSession, HttpServletResponse, HttpServletRequest}
 import org.mockito.Mockito._
 import istuff.user.service.impl.{WidgetsView, RegisterView}
@@ -13,6 +13,8 @@ import org.mockito.Matchers._
 import matchers.IsAnyString
 import org.hamcrest.core.IsAnything
 import java.util
+import org.amdatu.template.processor.{TemplateContext, TemplateProcessor}
+import java.io.PrintWriter
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,4 +73,33 @@ class WidgetsViewTests extends FlatSpec with MockitoSugar{
     // Assert
     verify(resp).sendRedirect("/login")
   }
+
+  it should "generate stream for response writer" in {
+    // Arrange
+    val name = "johnny"
+    val context = mock[BundleContext]
+    val userColl = mock[DBCollection]
+    val req = mock[HttpServletRequest]
+    val resp = mock[HttpServletResponse]
+    val processor = mock[TemplateProcessor]
+    val bundle = mock[Bundle]
+    val session = mock[HttpSession]
+    val templateContext = mock[TemplateContext]
+
+    stub(context.getBundle).toReturn(bundle)
+    stub(req.getSession(any[Boolean])).toReturn(session)
+    stub(session.getAttribute("user")).toReturn(name)
+    stub(session.getAttribute("login")).toReturn("authenticated")
+
+    val view = new WidgetsView(context, userColl)
+    view.processor = processor
+    view.templateContext = templateContext
+
+    // Act
+    view.doGet(req, resp)
+
+    // Assert
+    verify(processor).generateStream(any[TemplateContext], any[PrintWriter])
+  }
+
 }
