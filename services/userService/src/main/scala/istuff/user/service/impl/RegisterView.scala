@@ -7,49 +7,51 @@ import istuff.api.util.Loggable
 import org.amdatu.template.processor.{TemplateProcessor, TemplateContext, TemplateEngine}
 import com.mongodb.{BasicDBObject, DBCollection}
 
-class RegisterView (context:BundleContext, userColl : DBCollection) extends HttpServlet with Loggable {
+class RegisterView (context:BundleContext, userCollection : DBCollection) extends HttpServlet with Loggable {
 
-  override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
-    if(req.getParameter("user") != null && req.getParameter("pwd1") == req.getParameter("pwd2") && req.getParameter("pwd1") != null){
-      val doc = new BasicDBObject("name", req.getParameter("user"))
-      val res = userColl.find(doc)
-      if (res.count()==0){
-        val doc = new BasicDBObject("name", req.getParameter("user")).append("pwd", req.getParameter("pwd1"))
-        userColl.insert(doc)
-        resp.setHeader("redirect_to", "/login")
+  override def doPost(request : HttpServletRequest , response : HttpServletResponse ) {
+
+    if(request.getParameter("user") != null && request.getParameter("pwd1") == request.getParameter("pwd2") && request.getParameter("pwd1") != null){
+
+      val query = new BasicDBObject("name", request.getParameter("user"))
+      val result = userCollection.find(query)
+
+      if (result.count()==0){
+        val document = new BasicDBObject("name", request.getParameter("user")).append("pwd", request.getParameter("pwd1"))
+        userCollection.insert(document)
+        response.setHeader("redirect_to", "/login")
       }
       else{
-        resp.setHeader("redirect_to", "/register")
+        response.setHeader("redirect_to", "/register")
       }
-
-
     }
   }
 
-  override def doGet(req : HttpServletRequest , resp : HttpServletResponse ) {
+  override def doGet(request : HttpServletRequest , response : HttpServletResponse ) {
+
     // Retrieve a Velocity implementation of the engine
-    val eng = context findService classOf[TemplateEngine]
+    val templateEngine = context findService classOf[TemplateEngine]
 
     // Create & fill the context
-    var tcontext : TemplateContext = null
-    eng andApply { _.createContext() }   match {
+    var templateContext : TemplateContext = null
+    templateEngine andApply { _.createContext() }   match {
       case None => logger error("No key with that name!")
-      case Some(x) =>   tcontext=x
+      case Some(x) =>   templateContext=x
     }
 
     var processor : TemplateProcessor  = null
 
     val url = context.getBundle().getResource("register.html")
-    eng andApply { _.createProcessor(url)
+    templateEngine andApply { _.createProcessor(url)
     }   match {
       case None => logger error("No key with that name!")
       case Some(x) =>   processor=x
     }
 
-    resp.setContentType("text/html;charset=UTF-8")
-    resp.setContentType("text/html")
-    val out = resp.getWriter()
-    processor.generateStream(tcontext,out)
+    response.setContentType("text/html;charset=UTF-8")
+    response.setContentType("text/html")
+    val out = response.getWriter()
+    processor.generateStream(templateContext,out)
   }
 
 }

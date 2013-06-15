@@ -11,84 +11,91 @@ import collection.JavaConverters._
 import com.mongodb.{BasicDBObject, DBCollection}
 
 /**
- * Created with IntelliJ IDEA.
- * User: bursant
+ * User: Piotr Borowiec
  * Date: 5/25/13
  * Time: 12:58 PM
- * To change this template use File | Settings | File Templates.
  */
-class WidgetsView (context:BundleContext, userWidgetColl : DBCollection) extends HttpServlet with Loggable {
+class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends HttpServlet with Loggable {
 
   val userCollName = "user"
   val widgetCollName = "widget"
   val versionCollName = "version"
 
-  override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
-    val session = req getSession(false)
-    var user  = ""
-    if (session!=null) user =  session getAttribute("user") toString ()
+  override def doPost(request: HttpServletRequest, response: HttpServletResponse) {
+
+    val session = request getSession (false)
+    var user = ""
+    if (session != null) user = session getAttribute ("user") toString()
+
     var items = Set[String]()
     var doubles = Set[String]()
 
-    req.getParameterNames.asScala.foreach(s => items += s.toString)
+    request.getParameterNames.asScala.foreach(s => items += s.toString)
 
     val widgetCursor = userWidgetColl.find(new BasicDBObject(userCollName, user))
-    while(widgetCursor.hasNext){
+
+    while (widgetCursor.hasNext) {
+
       val entry = widgetCursor.next
-      if(entry.get(widgetCollName) != "main")
-      {
-        if(!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
+
+      if (entry.get(widgetCollName) != "main") {
+        if (!items.contains(entry.get(widgetCollName) + "|" + entry.get(versionCollName)))
           userWidgetColl.remove(entry)
         doubles += entry.get(widgetCollName) + "|" + entry.get(versionCollName)
       }
     }
     widgetCursor.close
 
-    for(item <- items){
-      if(!doubles.contains(item)){
+    for (item <- items) {
+      if (!doubles.contains(item)) {
         userWidgetColl.insert(new BasicDBObject(userCollName, user)
           .append(widgetCollName, item.split('|')(0))
           .append(versionCollName, item.split('|')(1)))
       }
     }
 
-    resp.setContentType("text/html;charset=UTF-8")
-    resp.sendRedirect("/")
+    response.setContentType("text/html;charset=UTF-8")
+    response.sendRedirect("/")
   }
 
-  override def doGet(req : HttpServletRequest , resp : HttpServletResponse ) {
-    val eng = context findService classOf[TemplateEngine]
+  override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
+    val templateEngine = context findService classOf[TemplateEngine]
 
     // Create & fill the context
-    var tcontext : TemplateContext = null
-    eng andApply { _.createContext() }   match {
-      case None => logger error("No key with that name!")
-      case Some(x) =>   tcontext=x
+    var templateContext: TemplateContext = null
+    templateEngine andApply {
+      _.createContext()
+    } match {
+      case None => logger error ("No key with that name!")
+      case Some(x) => templateContext = x
     }
 
-    var processor : TemplateProcessor  = null
+    var processor: TemplateProcessor = null
 
     val url = context.getBundle().getResource("widgets.html")
-    eng andApply { _.createProcessor(url)
-    }   match {
-      case None => logger error("No key with that name!")
-      case Some(x) =>   processor=x
+    templateEngine andApply {
+      _.createProcessor(url)
+    } match {
+      case None => logger error ("No key with that name!")
+      case Some(x) => processor = x
     }
 
     val widgets = context findService withInterface[WidgetService] andApply {
       _.getAvailableWidgets()
     } getOrElse (List.empty[WidgetDescriptor])
-    tcontext.put("widgets", widgets.toArray)
+    templateContext.put("widgets", widgets.toArray)
 
-    val session = req getSession(false)
-    var user  = ""
-    if (session!=null) user =  session getAttribute("user") toString ()
-    tcontext.put("user", user)
+    val session = request getSession (false)
+    var user = ""
+    if (session != null) user = session getAttribute ("user") toString()
 
-    resp.setContentType("text/html;charset=UTF-8")
-    resp.setContentType("text/html")
-    val out = resp.getWriter()
-    processor.generateStream(tcontext,out)
+    templateContext.put("user", user)
+
+    response.setContentType("text/html;charset=UTF-8")
+    response.setContentType("text/html")
+
+    val out = response.getWriter()
+    processor.generateStream(templateContext, out)
   }
 
 }

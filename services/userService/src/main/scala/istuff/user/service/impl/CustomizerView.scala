@@ -6,11 +6,9 @@ import javax.servlet.http.{HttpServletResponse, HttpServletRequest, HttpServlet}
 import istuff.api.util.Loggable
 
 /**
- * Created with IntelliJ IDEA.
- * User: bursant
+ * User: Piotr Borowiec
  * Date: 6/1/13
  * Time: 12:02 PM
- * To change this template use File | Settings | File Templates.
  */
 class CustomizerView (context:BundleContext, userWidgetColl : DBCollection) extends HttpServlet with Loggable {
 
@@ -22,17 +20,18 @@ class CustomizerView (context:BundleContext, userWidgetColl : DBCollection) exte
   val xposCollName = "xpos"
   val yposCollName = "ypos"
 
-  override def doPost(req : HttpServletRequest , resp : HttpServletResponse ) {
-    val session = req getSession(false)
+  override def doPost(request : HttpServletRequest , response : HttpServletResponse ) {
+
+    val session = request getSession(false)
     var user  = ""
     if (session!=null) user =  session getAttribute("user") toString ()
 
-    val name = req.getParameter("name")
-    val version = req.getParameter("version")
-    val height = req.getParameter("height")
-    val width = req.getParameter("width")
-    val xpos = req.getParameter("xposition")
-    val ypos = req.getParameter("yposition")
+    val name = request.getParameter("name")
+    val version = request.getParameter("version")
+    val height = request.getParameter("height")
+    val width = request.getParameter("width")
+    val xpos = request.getParameter("xposition")
+    val ypos = request.getParameter("yposition")
 
     userWidgetColl.remove(
       new BasicDBObject(userCollName, user)

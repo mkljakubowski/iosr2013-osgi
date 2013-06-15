@@ -9,9 +9,9 @@
 <script>
     function register() {
 
-        var aForm=register_form
+        var aForm = register_form
         //Getting the two input objects
-        var username= aForm['user'].value;
+        var username = aForm['user'].value;
         var inputPassword1 = aForm['pwd1'].value;
         var inputPassword2 = aForm['pwd2'].value;
 
@@ -20,14 +20,14 @@
         var hashed_pwd2 = CryptoJS.SHA256(inputPassword2).toString(CryptoJS.enc.Hex);
 
         //Submitting
-        $.post("/register", { user: username, pwd1: hashed_pwd1, pwd2 : hashed_pwd2 },
-            function(data, textStatus, jqXHR) {
-                window.location.replace(jqXHR.getResponseHeader("redirect_to"))
-        });
+        $.post("/register", { user: username, pwd1: hashed_pwd1, pwd2: hashed_pwd2 },
+                function (data, textStatus, jqXHR) {
+                    window.location.replace(jqXHR.getResponseHeader("redirect_to"))
+                });
     }
 </script>
 
-<form method="POST" action="/register"  name="register_form">
+<form method="POST" action="/register" name="register_form">
     Username: <input type="text" name="user"><br>
     Password: <input type="password" name="pwd1"><br>
     Confirm: <input type="password" name="pwd2"><br>

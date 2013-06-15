@@ -14,39 +14,40 @@ import com.weiglewilczek.scalamodules
 
 class MainPageView(context: BundleContext, userWidgetColl: DBCollection) extends HttpServlet with Loggable {
 
-  override def doGet(req: HttpServletRequest, resp: HttpServletResponse) {
-    val session = req getSession (false)
+  override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
+    val session = request getSession (false)
 
     if (session == null || session.getAttribute("login") != "authenticated") {
 
-      resp.setContentType("text/html;charset=UTF-8")
-      resp.sendRedirect("/login")
+      response.setContentType("text/html;charset=UTF-8")
+      response.sendRedirect("/login")
 
     } else {
 
       val user = session getAttribute ("user")
 
       // Retrieve a Velocity implementation of the engine
-      val eng = context findService classOf[TemplateEngine]
+      val templateEngine = context findService classOf[TemplateEngine]
 
       // Create & fill the context
-      var tcontext: TemplateContext = null
-      eng andApply {
+      var templateContext: TemplateContext = null
+      templateEngine andApply {
         _.createContext()
       } match {
         case None => logger error ("No key with that name!")
-        case Some(x) => tcontext = x
+        case Some(x) => templateContext = x
       }
 
       var processor: TemplateProcessor = null
 
       val url = context.getBundle().getResource("index.html")
-      eng andApply {
+      templateEngine andApply {
         _.createProcessor(url)
       } match {
         case None => logger error ("No key with that name!")
         case Some(x) => processor = x
       }
+
       val widgets = context findService withInterface[WidgetService] andApply {
         _.getAvailableWidgets()
       } getOrElse (List.empty[WidgetDescriptor])
@@ -55,10 +56,10 @@ class MainPageView(context: BundleContext, userWidgetColl: DBCollection) extends
 
       var userWidgets = Set[WidgetDescriptor]()
 
-      tcontext.put("mainHeight", 100)
-      tcontext.put("mainWidth", 200)
-      tcontext.put("mainYPos", 5)
-      tcontext.put("mainXPos", 5)
+      templateContext.put("mainHeight", 100)
+      templateContext.put("mainWidth", 200)
+      templateContext.put("mainYPos", 5)
+      templateContext.put("mainXPos", 5)
 
       while (widgetPreferences.hasNext) {
         var currentWidget = widgetPreferences.next
@@ -84,21 +85,21 @@ class MainPageView(context: BundleContext, userWidgetColl: DBCollection) extends
             userWidgets += widget
           }
           else if (currentWidget.get("widget") == "main") {
-            tcontext.put("mainHeight", currentWidget.get("height").toString.toInt)
-            tcontext.put("mainWidth", currentWidget.get("width").toString.toInt)
-            tcontext.put("mainYPos", currentWidget.get("ypos").toString.toInt)
-            tcontext.put("mainXPos", currentWidget.get("xpos").toString.toInt)
+            templateContext.put("mainHeight", currentWidget.get("height").toString.toInt)
+            templateContext.put("mainWidth", currentWidget.get("width").toString.toInt)
+            templateContext.put("mainYPos", currentWidget.get("ypos").toString.toInt)
+            templateContext.put("mainXPos", currentWidget.get("xpos").toString.toInt)
           }
         }
       }
 
-      tcontext.put("widgets", userWidgets.toArray)
-      tcontext.put("user", user)
+      templateContext.put("widgets", userWidgets.toArray)
+      templateContext.put("user", user)
 
-      resp.setContentType("text/html;charset=UTF-8")
-      resp.setContentType("text/html")
-      val out = resp.getWriter()
-      processor.generateStream(tcontext, out)
+      response.setContentType("text/html;charset=UTF-8")
+      response.setContentType("text/html")
+      val out = response.getWriter()
+      processor.generateStream(templateContext, out)
     }
   }
 }
