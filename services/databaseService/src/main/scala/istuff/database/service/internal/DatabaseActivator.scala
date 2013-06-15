@@ -13,6 +13,8 @@ class DatabaseActivator extends BundleActivator with Loggable{
   def start(context: BundleContext) {
     val databaseAddress = "ds057847.mongolab.com"
     val databasePort = 57847
+//    val databaseAddress = "localhost"
+//    val databasePort = 27017
     val databaseName = "iosr-osgi-test"
     val user = "stefan"
     val password = "ala123".toArray
