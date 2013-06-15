@@ -14,6 +14,9 @@ import com.weiglewilczek.scalamodules
 
 class MainPageView(context: BundleContext, userWidgetColl: DBCollection) extends HttpServlet with Loggable {
 
+  var templateContext : TemplateContext = _
+  var processor: TemplateProcessor = _
+
   override def doGet(request: HttpServletRequest, response: HttpServletResponse) {
     val session = request getSession (false)
 
@@ -30,15 +33,12 @@ class MainPageView(context: BundleContext, userWidgetColl: DBCollection) extends
       val templateEngine = context findService classOf[TemplateEngine]
 
       // Create & fill the context
-      var templateContext: TemplateContext = null
       templateEngine andApply {
         _.createContext()
       } match {
         case None => logger error ("No key with that name!")
         case Some(x) => templateContext = x
       }
-
-      var processor: TemplateProcessor = null
 
       val url = context.getBundle().getResource("index.html")
       templateEngine andApply {
