@@ -78,6 +78,8 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
           }
         }
         session.removeAttribute("widget_token")
+      }else {
+        log("Suspicious: Someone tried to do POST without the previous GET ")
       }
       response.setContentType("text/html;charset=UTF-8")
       response.sendRedirect("/")
@@ -122,9 +124,12 @@ class WidgetsView(context: BundleContext, userWidgetColl: DBCollection) extends 
 
 
       templateContext.put("user", user)
+
+      //generate random token to be checked when posting
       val tmp_id = idGenerator.nextSessionId()
       session setAttribute("widget_token", tmp_id)
       response.addCookie(new Cookie("widget_token", tmp_id))
+
       response.setContentType("text/html;charset=UTF-8")
       response.setContentType("text/html")
 
